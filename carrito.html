@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <title>PROCESADORES - Carrito</title>
+    <link rel="icon" href="img/icono.jpg">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
@@ -24,6 +25,7 @@
         }
 
         body {
+            margin: 0;
             font-family: 'Poppins', sans-serif;
         }
 
@@ -62,9 +64,7 @@
             text-transform: uppercase;
             position: relative;
             animation: moveLogo 5s infinite linear;
-            /* Agrega una animación de movimiento lateral infinito */
             text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
-            /* Borde blanco */
         }
 
         @keyframes moveLogo {
@@ -362,28 +362,6 @@
             justify-content: center;
         }
 
-        .btn-social {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 60px;
-            font-size: 28px;
-            margin-right: 10px;
-            background-color: #fff;
-            color: black;
-            border: 2px solid black;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .btn-social:hover {
-            background-color: #000000;
-            color: #fff;
-        }
-
 
         .btn-social:hover {
             background-color: lightcoral;
@@ -437,6 +415,8 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
+            margin: 20px auto; 
+            display: block; 
         }
 
         .close-button {
@@ -450,6 +430,78 @@
             color: lightcoral;
             z-index: 2;
         }
+
+        #realizar-pedido {
+            width: 100px;
+        }
+
+        .remove-icon {
+            width: 50px;
+            height: 50px;
+        }
+
+        .remove-button{
+            padding: 5px;
+        }
+
+    #cartItems {
+        text-align: center; 
+        margin-top: 20px; 
+    }
+
+    .cart-item {
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        margin-bottom: 10px; 
+    }
+
+    .carrito h1 {
+        font-size: 40px !important; 
+        text-align: center !important; 
+        color: black !important; 
+        margin-top: 1cm;
+    }
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+            padding: 15px 20px;
+            border: none;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        button img {
+            max-width: 40px;
+            max-height: 40px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        #clearCartBtn {
+            background-color: #ff6347;
+            margin-top: 1cm;
+            margin-left: 17.4cm;
+        }
+
+        #orderButton {
+            background-color: #007bff;
+            margin-top: 1cm;
+            margin-left: 17.2cm;
+        }
+
+        .navbar ul li a img {
+        max-width: 50px; 
+        max-height: 50px;
+        margin-right: 5px; 
+        vertical-align: middle; 
+    }
+    
     </style>
 
 </head>
@@ -464,8 +516,18 @@
             <input type="checkbox" id="menu" />
             <nav class="navbar">
                 <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="menu.html">Productos</a></li>
+                    <li>
+                        <a href="index.html">
+                            <img src="img/inicio.jpg" alt="Inicio">
+                            Inicio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="menu.html">
+                            <img src="img/productos.jpg" alt="Productos">
+                            Productos
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -476,404 +538,105 @@
         </div>
     </header>
 
-    <main>
-        <h2>Nuestros Productos</h2>
-        <div class="product-container">
-            <div class="product">
-                <div class="model-container">
-                    <model-viewer
-                        src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo1.glb?v=1706059483281"
-                        ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="commerce"
-                        poster="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/poster1.webp?v=1706063265168"
-                        shadow-intensity="1.91" shadow-softness="0.82" auto-rotate
-                        camera-orbit="0.3561deg 157.5deg 2.923m" field-of-view="30deg">
-                        <div class="progress-bar hide" slot="progress-bar">
-                            <div class="update-bar"></div>
-                        </div>
-                        <button slot="ar-button" id="ar-button">
-                            View in your space
-                        </button>
-                    </model-viewer>
-                </div>
-                <h3>PROCESADOR DE ALIMENTOS</h3>
-                <p>Precio: $<span class="product-price">1,500.00</span> MXN</p>
-                <button class="add-to-cart" onclick="addToCart(0)">Agregar al Carrito</button>
-            </div>
-            <div class="product">
-                <div>
-                    <model-viewer
-                        src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo2.glb?v=1706063197951"
-                        ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="commerce"
-                        poster="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/poster2.webp?v=1706063198437"
-                        shadow-intensity="1" auto-rotate>
-                        <div class="progress-bar hide" slot="progress-bar">
-                            <div class="update-bar"></div>
-                        </div>
-                        <button slot="ar-button" id="ar-button">
-                            View in your space
-                        </button>
-                        <div id="ar-prompt">
-                        </div>
-                    </model-viewer>
-
-                </div>
-                <h3>CORTADORA PROFESIONAL DE VERDURAS</h3>
-                <p>Precio: $<span class="product-price">8,000.00</span> MXN</p>
-                <button class="add-to-cart" onclick="addToCart(1)">Agregar al Carrito</button>
-            </div>
-
-            <div class="product">
-                <div>
-                    <model-viewer
-                        src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo3.glb?v=1706063489616"
-                        ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="commerce"
-                        poster="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo3.glb?v=1706063489616"
-                        shadow-intensity="1" auto-rotate camera-orbit="76.56deg 115.1deg 2.704m" field-of-view="30deg">
-                        <div class="progress-bar hide" slot="progress-bar">
-                            <div class="update-bar"></div>
-                        </div>
-                        <button slot="ar-button" id="ar-button">
-                            View in your space
-                        </button>
-                        <div id="ar-prompt">
-                        </div>
-                    </model-viewer>
-
-                </div>
-                <h3>LICUADORA PROFESIONAL </h3>
-                <p>Precio: $<span class="product-price">3,000.00</span> MXN</p>
-                <button class="add-to-cart" onclick="addToCart(2)">Agregar al Carrito</button>
-            </div>
-        </div>
-        <div class="product-container">
-            <div class="product">
-                <div>
-                    <model-viewer
-                        src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo4.glb?v=1706067435250"
-                        ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="commerce"
-                        poster="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/poster4.webp?v=1706067435778"
-                        shadow-intensity="1" auto-rotate>
-                        <div class="progress-bar hide" slot="progress-bar">
-                            <div class="update-bar"></div>
-                        </div>
-                        <button slot="ar-button" id="ar-button">
-                            View in your space
-                        </button>
-                        <div id="ar-prompt">
-
-                        </div>
-                    </model-viewer>
-
-                </div>
-                <h3>CORTADORA DE CARNES Y QUESOS </h3>
-                <p>Precio: $<span class="product-price">6,000.00</span> MXN</p>
-                <button class="add-to-cart" onclick="addToCart(3)">Agregar al Carrito</button>
-            </div>
-
-            <div class="product">
-                <div>
-                    <model-viewer
-                        src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo5.glb?v=1706067535200"
-                        ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="commerce"
-                        poster="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/poster5.webp?v=1706067534335"
-                        shadow-intensity="1" auto-rotate>
-                        <div class="progress-bar hide" slot="progress-bar">
-                            <div class="update-bar"></div>
-                        </div>
-                        <button slot="ar-button" id="ar-button">
-                            View in your space
-                        </button>
-                        <div id="ar-prompt">
-                        </div>
-                    </model-viewer>
-                </div>
-                <h3>BATIDORA PROFESIONAL </h3>
-                <p>Precio: $<span class="product-price">1,200.00</span> MXN</p>
-                <button class="add-to-cart" onclick="addToCart(4)">Agregar al Carrito</button>
-            </div>
-
-
-            <div class="product">
-                <div>
-                    <model-viewer
-                        src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo6.glb?v=1706067651483"
-                        ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="commerce"
-                        poster="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/poster6.webp?v=1706067650620"
-                        shadow-intensity="1" auto-rotate>
-                        <div class="progress-bar hide" slot="progress-bar">
-                            <div class="update-bar"></div>
-                        </div>
-                        <button slot="ar-button" id="ar-button">
-                            View in your space
-                        </button>
-                        <div id="ar-prompt">
-                        </div>
-                    </model-viewer>
-                </div>
-                <h3>MOLINO PROFESIONAL DE CARNE</h3>
-                <p>Precio: $<span class="product-price">5,700.00</span> MXN</p>
-                <button class="add-to-cart" onclick="addToCart(5)">Agregar al Carrito</button>
-            </div>
-</div>
-
-<div class="product-container">
-    <div class="product">
-        <div>
-            <model-viewer
-                src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo7.glb?v=1707808204040"
-                ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="commerce"
-                poster="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/poster7.webp?v=1707808204542"
-                shadow-intensity="1" auto-rotate>
-                <div class="progress-bar hide" slot="progress-bar">
-                    <div class="update-bar"></div>
-                </div>
-                <button slot="ar-button" id="ar-button">
-                    View in your space
-                </button>
-                <div id="ar-prompt">
-
-                </div>
-            </model-viewer>
-
-        </div>
-        <h3>CORTADORA DE FRUTAS </h3>
-        <p>Precio: $<span class="product-price">3,000.00</span> MXN</p>
-        <button class="add-to-cart" onclick="addToCart(3)">Agregar al Carrito</button>
+    <div class="carrito">
+    <h1>Carrito de compras</h1>
     </div>
-
-    <div class="product">
-        <div>
-            <model-viewer
-                src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo8.glb?v=1707808222667"
-                ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="commerce"
-                poster="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/poster8.webp?v=1707808221799"
-                shadow-intensity="1" auto-rotate>
-                <div class="progress-bar hide" slot="progress-bar">
-                    <div class="update-bar"></div>
-                </div>
-                <button slot="ar-button" id="ar-button">
-                    View in your space
-                </button>
-                <div id="ar-prompt">
-                </div>
-            </model-viewer>
-        </div>
-        <h3>EXTRACTOR AUTOMATICO DE ACEITE </h3>
-        <p>Precio: $<span class="product-price">9,100.00</span> MXN</p>
-        <button class="add-to-cart" onclick="addToCart(4)">Agregar al Carrito</button>
+    <div id="cartItems">
+        <!-- Aquí se mostrarán los elementos del carrito -->
     </div>
+    <button id="clearCartBtn">
+        <img src="img/eliminar.jpg" alt="Vaciar carrito">
+        Vaciar carrito
+    </button>
+    
+    <button id="orderButton">
+        <img src="img/comprar.jpg" alt="Realizar pedido">
+        Realizar pedido
+    </button>
+    
 
-
-    <div class="product">
-        <div>
-            <model-viewer
-                src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo9.glb?v=1707808244901"
-                ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="commerce"
-                poster="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/poster9.webp?v=1707808245317"
-                shadow-intensity="1" auto-rotate>
-                <div class="progress-bar hide" slot="progress-bar">
-                    <div class="update-bar"></div>
-                </div>
-                <button slot="ar-button" id="ar-button">
-                    View in your space
-                </button>
-                <div id="ar-prompt">
-                </div>
-            </model-viewer>
-        </div>
-        <h3>PICADORA DE CARNE</h3>
-        <p>Precio: $<span class="product-price">1,000.00</span> MXN</p>
-        <button class="add-to-cart" onclick="addToCart(5)">Agregar al Carrito</button>
-    </div>
-</div>
-
-<div class="product-container">
-    <div class="product">
-        <div>
-            <model-viewer
-                src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo10.glb?v=1707808264434"
-                ar ar-modes="scene-viewer webxr quick-look" camera-controls tone-mapping="commerce"
-                poster="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/poster10.webp?v=1707808264988"
-                shadow-intensity="1" auto-rotate>
-                <div class="progress-bar hide" slot="progress-bar">
-                    <div class="update-bar"></div>
-                </div>
-                <button slot="ar-button" id="ar-button">
-                    View in your space
-                </button>
-                <div id="ar-prompt">
-
-                </div>
-            </model-viewer>
-
-        </div>
-        <h3>MOLINILLO DE GRANO ELECTRICO </h3>
-        <p>Precio: $<span class="product-price">3,300.00</span> MXN</p>
-        <button class="add-to-cart" onclick="addToCart(3)">Agregar al Carrito</button>
-    </div>
-
-
-    </main>
-
-    <div class="cart-sidebar">
-        <h2>Carrito de Compras</h2>
-        <div class="show-cart-button">
-            <i class="fas fa-shopping-cart cart-icon"></i>
-        </div>
-        <div class="cart-content">
-            <ul class="cart-items">
-            </ul>
-            <div class="cart-total-container">
-                <p>Total: $<span class="cart-total">0.00</span></p>
-                <button class="add-to-cart order-button" data-index="0" id="realizar-pedido">Realizar Pedido</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid footer bg-light py-5" style="margin-top: 90px;">
-        <div class="container text-center py-5">
-            <div class="row">
-                <div class="col-12 mb-4">
-                    <a href="index.html" class="navbar-brand m-0">
-                        <h1 class="m-0 mt-n2 display-4 text-primary"><span class="text-secondary">"Procesadores de
-                                Alimentos"</span></h1>
-                    </a>
-                </div>
-                <div class="col-12 mb-4">
-                    <a class="btn btn-outline-secondary btn-social mr-2" href="">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a class="btn btn-outline-secondary btn-social mr-2" href="">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a class="btn btn-outline-secondary btn-social" href=" ">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-
-                <div class="contact-info">
-                    <div class="contact">
-                        <h5 class="font-weight-bold mb-2">Ponerse en contacto</h5>
-                    </div>
-                </div>
-
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-
-                <script>
-                    const cartItems = document.querySelector('.cart-items');
-                    const cartTotal = document.querySelector('.cart-total');
-                    const cartButton = document.querySelector('.show-cart-button');
-                    const cartContent = document.querySelector('.cart-content');
-                    const orderButton = document.querySelector('.order-button');
-
-                    const products = [
-                        { name: 'Producto 1', price: 1500.00, image: 'img/procesador.jpg' },
-                        { name: 'Producto 2', price: 8000.00, image: 'img/cortadora_v.jpg' },
-                        { name: 'Producto 3', price: 3000.00, image: 'img/licuadora.jpg' },
-                        { name: 'Producto 4', price: 6000.00, image: 'img/cortadora_c.jpg' },
-                        { name: 'Producto 5', price: 1200.00, image: 'img/batidora.jpg' },
-                        { name: 'Producto 6', price: 5700.00, image: 'img/molino.jpg' },
-                        { name: 'Producto 7', price: 60.00, image: 'img/alitas.jpg' },
-                        { name: 'Producto 8', price: 50.00, image: 'img/cerveza.jpg' },
-                        { name: 'Producto 9', price: 35.00, image: 'img/cafe-5.jpg' },
-                    ];
-
-                    let cart = [];
-
-                    function addToCart(productIndex) {
-                        const productToAdd = products[productIndex];
-                        const price = productToAdd.price.toFixed(2);
-
-                        cart.push(productToAdd);
-                        renderCart();
-                    }
-
-                    function removeFromCart(index) {
-                        cart.splice(index, 1);
-                        renderCart();
-                    }
-
-                    function calculateTotal() {
-                        let total = 0;
-                        cart.forEach((product) => {
-                            total += product.price;
-                        });
-                        return total.toFixed(2);
-                    }
-
-                    function toggleCart() {
-                        cartContent.classList.toggle('active');
-                    }
-
-                    function renderCart() {
-                        cartItems.innerHTML = '';
-                        cart.forEach((product, index) => {
-                            const cartItem = document.createElement('li');
-                            cartItem.classList.add('cart-item');
-                            cartItem.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}">
-                    <span>${product.name} - $${product.price.toFixed(2)}</span>
-                    <div class="cart-buttons">
-                        <button onclick="removeFromCart(${index})">Eliminar</button>
-                    </div>
-                `;
-                            cartItems.appendChild(cartItem);
-                        });
-
-                        cartTotal.textContent = calculateTotal();
-
-                        if (cart.length === 0) {
-                            cartContent.classList.remove('active');
-                        } else {
-                            cartContent.classList.add('active');
-                        }
-                    }
-
-                    cartButton.addEventListener('click', toggleCart);
-
-                    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-                    addToCartButtons.forEach((button, index) => {
-                        button.addEventListener('click', () => {
-                            openModalWithData(index);
-                        });
-                    });
-
-                    orderButton.addEventListener('click', () => {
-                        // Recopila los datos del cliente y los productos
-                        const cliente = {
-                            nombre: document.getElementById('nombre').value,
-                            apellidos: document.getElementById('apellidos').value,
-                            telefono: document.getElementById('telefono').value,
-                            email: document.getElementById('email').value,
-                        };
-
-                        // Envía los datos al servidor
-                        fetch('guardar_pedido.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ cliente, productos: cart }),
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                alert('Pedido realizado. Total: $' + data.total);
-
-                                cart = [];
-                                renderCart();
-                                window.open(data.pdf_url, '_blank');
-                            })
-                            .catch(error => {
-                                console.error('Error al procesar el pedido:', error);
-                            });
-                    });
-                </script>
-
+    <script>
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+        const cartItemsContainer = document.getElementById('cartItems');
+        const clearCartBtn = document.getElementById('clearCartBtn');
+        const orderButton = document.getElementById('orderButton');
+    
+        function updateCart() {
+            cartItemsContainer.innerHTML = '';
+    
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>El carrito está vacío.</p>';
+            } else {
+                cart.forEach(product => {
+                    const cartItem = document.createElement('div');
+                    cartItem.classList.add('cart-item');
+                    cartItem.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <p>${product.name} - ${product.quantity} unidades</p>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+            }
+        }
+    
+        updateCart();
+    
+        clearCartBtn.addEventListener('click', function () {
+            // Limpiar el carrito local y actualizar la vista
+            localStorage.removeItem('cart');
+            cart.length = 0;
+            updateCart();
+            alert('Carrito vaciado.');
+        });
+    
+        orderButton.addEventListener('click', () => {
+            // Obtener los datos del comprador
+            const cliente = {
+                nombre: document.getElementById('nombre').value,
+                apellidos: document.getElementById('apellidos').value,
+                telefono: document.getElementById('telefono').value,
+                email: document.getElementById('email').value,
+            };
+    
+            if (cart.length === 0) {
+                alert('El carrito está vacío. Agregue productos antes de realizar un pedido.');
+                return;
+            }
+    
+            // Enviar datos del pedido al servidor
+            fetch('guardar_pedido.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ cliente, productos: cart }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Mostrar información del pedido y abrir el PDF en una nueva ventana
+                    alert('Pedido realizado. Total: $' + data.total);
+    
+                    // Limpiar el carrito local y actualizar la vista
+                    cart.length = 0;
+                    localStorage.removeItem('cart');
+                    updateCart();
+    
+                    window.open(data.pdf_url, '_blank');
+                })
+                .catch(error => {
+                    console.error('Error al procesar el pedido:', error);
+                });
+        });
+    </script>
+    
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
                 <div id="popup-form" class="popup-form">
                     <div class="popup-content">
-                        <span id="close-button" class="close-button">X</span> <!-- Agrega el botón "X" aquí -->
+                        <span id="close-button" class="close-button">X</span> 
                         <h3>Ingrese sus datos de comprador</h3>
                         <form>
                             <label for="nombre">Nombre:</label>
@@ -888,9 +651,10 @@
                             <label for="email">Correo electrónico:</label>
                             <input type="email" id="email" name="email" required>
                             <br>
-                            <br>
-                            <button type="submit">Enviar</button>
-                            <br>
+                            <button type="submit" id="submitButton">
+                                <img src="img/enviar.jpg" alt="Texto alternativo de la imagen">
+                                Enviar
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -914,7 +678,6 @@
                     // Mostrar el formulario al cargar la página
                     document.addEventListener("DOMContentLoaded", openForm);
 
-                    // Escucha el evento submit del formulario
                     document.querySelector("form").addEventListener("submit", function (event) {
                         event.preventDefault();
 

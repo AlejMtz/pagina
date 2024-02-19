@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <link rel="icon" href="img/icono.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-image: url("img/encabezado.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            z-index: 1;
+            color: white;
+            font-size: 80px;
+            font-weight: 800;
+            text-transform: uppercase;
+            position: relative;
+            animation: moveLogo 5s infinite linear;
+            text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
+        }
+
+        @keyframes moveLogo {
+            0% {
+                left: 0;
+            }
+            50% {
+                left: 20px;
+            }
+            100% {
+                left: 0;
+            }
+        }
+
+        form {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        input,
+        button {
+            margin-bottom: 10px;
+        }
+
+        #forms-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+
+        #deleteProductForm {
+            text-align: center;
+            background-color: rgba(255, 204, 188, 0.3); /* Color mamey desvanecido */
+            padding: 20px;
+            border-radius: 15px; /* Bordes redondeados */
+            margin: 20px;
+            width: 30%;
+            margin-top: 1cm;
+            margin-left: 22cm; /* Mover a la izquierda 5cm */
+            border: 2px solid transparent;
+            transition: background-color 0.3s ease; /* Agregada transición solo para el fondo */
+
+            /* Mantener el contenedor estático */
+            position: relative;
+            z-index: 1;
+        }
+
+        #productForm {
+            text-align: center;
+            background-color: rgba(153, 194, 164, 0.3); /* Color mamey desvanecido */
+            padding: 20px;
+            border-radius: 15px; /* Bordes redondeados */
+            margin: 20px;
+            width: 30%;
+            margin-top: -7.4cm;
+            margin-left: 5cm; /* Mover a la izquierda 5cm */
+            border: 2px solid transparent;
+            transition: background-color 0.3s ease; /* Agregada transición solo para el fondo */
+
+            /* Mantener el contenedor estático */
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-title {
+            color: black;
+            font-size: 30px;
+            font-weight: 10;
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+            padding: 15px 20px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            border-radius: 5px;
+        }
+
+        button img {
+            max-width: 40px;
+            max-height: 40px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        #clearCartBtn {
+            background-color: #ff6347;
+            margin-top: 0.5cm;
+            margin-left: 3.5cm;
+        }
+
+        #orderButton {
+            background-color:springgreen;
+            margin-top: 0.5cm;
+            margin-left: 3.5cm;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Administrador</h1>
+    </header>
+
+    <form id="deleteProductForm">
+        <h1 class="form-title">Eliminar</h1>
+        <br>
+        <label for="deleteProductName">Eliminar por nombre:</label>
+        <br>
+        <input type="text" id="deleteProductName" required>
+        <br>
+        <button id="clearCartBtn" type="button" onclick="deleteProductByName()">
+            <img src="img/eliminar.jpg" alt="Eliminar">
+            Eliminar
+        </button>        
+    </form>
+
+    <form id="productForm">
+        <h1 class="form-title">Agregar Prodcuto</h1>
+        <br>
+        <label for="productName">Nombre del producto:</label>
+        <br>
+        <input type="text" id="productName" required><br>
+
+        <label for="productPrice">Precio:</label>
+        <br>
+        <input type="number" id="productPrice" step="0.01" required><br>
+
+        <label for="productImage">URL de la imagen:</label>
+        <br>
+        <input type="text" id="productImage" required><br>
+
+        <button id="orderButton" type="button" onclick="addProduct()">
+            <img src="img/agregar.jpg" alt="Agregar">
+            Agregar
+        </button>
+    </form>
+
+    <script>
+        function addProduct() {
+            const productName = document.getElementById('productName').value;
+            const productPrice = parseFloat(document.getElementById('productPrice').value);
+            const productImage = document.getElementById('productImage').value;
+    
+            if (productName && !isNaN(productPrice) && productImage) {
+                const newProduct = { name: productName, price: productPrice, quantity: 1, image: productImage };
+    
+                let products = JSON.parse(localStorage.getItem('products')) || [];
+    
+                products.push(newProduct);
+    
+                localStorage.setItem('products', JSON.stringify(products));
+    
+                alert('Producto agregado correctamente.');
+    
+                window.location.href = 'menu.html';
+            } else {
+                alert('Por favor, completa todos los campos correctamente.');
+            }
+        }
+
+        function deleteProductByName() {
+            const deleteProductName = document.getElementById('deleteProductName').value.trim();
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+
+            const productIndex = products.findIndex(product => product.name === deleteProductName);
+
+            if (productIndex !== -1) {
+                const updatedProducts = products.filter((product, index) => index !== productIndex);
+
+                localStorage.setItem('products', JSON.stringify(updatedProducts));
+
+                alert('Producto eliminado: ' + deleteProductName);
+            } else {
+                alert('Producto no encontrado.');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PROCESADORES - Productos</title>
-
+    <link rel="icon" href="img/icono.jpg">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
@@ -59,9 +59,7 @@
             margin-right: auto;
             position: relative;
             animation: moveLogo 5s infinite linear;
-            /* Agrega una animación de movimiento lateral infinito */
             text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
-            /* Borde blanco */
         }
 
         @keyframes moveLogo {
@@ -113,7 +111,6 @@
             transform: translateZ(-20px);
             animation: rotate 5s linear infinite;
             text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
-            /* Borde blanco */
         }
 
         @keyframes rotate {
@@ -282,6 +279,24 @@
         .menu .navbar ul li a:hover {
             color: lightcoral;
         }
+
+        button img {
+        max-width: 50px; 
+        max-height: 50px;
+        margin-right: 5px; 
+        vertical-align: middle; 
+    }
+    button {
+        margin-top: 1cm; 
+    }
+
+    .navbar ul li a img {
+        max-width: 50px; 
+        max-height: 50px;
+        margin-right: 5px; 
+        vertical-align: middle; 
+    }
+
     </style>
 
 </head>
@@ -300,9 +315,20 @@
             </label>
             <nav class="navbar">
                 <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="carrito.html">Comprar</a></li>
+                    <li>
+                        <a href="index.html">
+                            <img src="img/inicio.jpg" alt="Inicio">
+                            Inicio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="carrito.html">
+                            <img src="img/carrito2.jpg" alt="Comprar">
+                            Comprar
+                        </a>
+                    </li>
                 </ul>
+            </nav>
             </nav>
         </div>
 
@@ -342,8 +368,13 @@
                 <div class="prices">
                     <span>$1,500.00 MXN</span>
                 </div>
-                <img
+                <img 
                     src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/qr_modelo1.png?v=1706207148894">
+                <div>
+                    <button onclick="addToCart(0)">
+                        <img src="img/carrito.jpg" alt="PROCESADORA DE ALIMENTOS">
+                    </button>
+                </div> 
             </div>
 
             <div class="general-txt">
@@ -376,6 +407,11 @@
                 </div>
                 <img
                     src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/qr_modelo2.png?v=1706207149111">
+                <div>
+                    <button onclick="addToCart(1)">
+                        <img src="img/carrito.jpg" alt="CORTADORA PROFESIONAL DE VERDURAS">
+                    </button>
+                </div>
             </div>
 
             <div class="general-txt">
@@ -406,6 +442,11 @@
                 </div>
                 <img
                     src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/qr_modelo3.png?v=1706207147870">
+                <div>
+                    <button onclick="addToCart(2)">
+                        <img src="img/carrito.jpg" alt="LICUADORA PROFESIONAL">
+                    </button>
+                </div>
             </div>
 
             <div class="general-txt">
@@ -439,6 +480,11 @@
                 </div>
                 <img
                     src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/qr_modelo4.png?v=1706207148093">
+                <div>
+                    <button onclick="addToCart(3)">
+                        <img src="img/carrito.jpg" alt="CORTADORA DE CARNES Y QUESOS">
+                    </button>
+                </div>
             </div>
 
             <div class="general-txt">
@@ -468,6 +514,11 @@
                 </div>
                 <img
                     src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/qr_modelo5.png?v=1706207148376">
+                <div>
+                    <button onclick="addToCart(4)">
+                        <img src="img/carrito.jpg" alt="BATIDORA PROFESIONAL">
+                    </button>
+                </div>
             </div>
 
             <div class="general-txt">
@@ -498,6 +549,11 @@
                 </div>
                 <img
                     src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/qr_modelo6.png?v=1706207148639">
+                <div>
+                    <button onclick="addToCart(5)">
+                        <img src="img/carrito.jpg" alt="MOLINO PROFESIONAL DE CARNE">
+                    </button>
+                </div>
             </div>
 
             <div class="general-txt">
@@ -527,6 +583,11 @@
                     <span>$3,000.00 MXN</span>
                 </div>
                 <img src="">
+                <div>
+                    <button onclick="addToCart(6)">
+                        <img src="img/carrito.jpg" alt="CORTADORA DE FRUTAS">
+                    </button>
+                </div>
             </div>
 
             <div class="general-txt">
@@ -554,6 +615,11 @@
                     <span>$9,100.00 MXN</span>
                 </div>
                 <img src="">
+                <div>
+                    <button onclick="addToCart(7)">
+                        <img src="img/carrito.jpg" alt="EXTRACTOR AUTOMATICO DE ACEITE">
+                    </button>
+                </div>
             </div>
 
             <div class="general-txt">
@@ -581,6 +647,11 @@
                     <span>$1,000.00 MXN</span>
                 </div>
                 <img src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo7.glb?v=1707808204040">
+                <div>
+                    <button onclick="addToCart(8)">
+                        <img src="img/carrito.jpg" alt="PICADORA DE CARNE ELECTRICA">
+                    </button>
+                </div>
             </div>
 
             <div class="general-txt">
@@ -608,8 +679,14 @@
                     <span>$3,300.00 MXN</span>
                 </div>
                 <img src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/modelo7.glb?v=1707808204040">
+                <div>
+                    <button onclick="addToCart(9)">
+                        <img src="img/carrito.jpg" alt="MOLINILLO DE GRANO ELECTRICO">
+                    </button>
+                </div>
             </div>
         </div>
+        <ul id="productList"></ul>
     </section>
 
     <div class="container-fluid footer bg-light py-5" style="margin-top: 90px;">
@@ -641,6 +718,49 @@
 
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
+                <script>
+                    function addToCart(productIndex) {
+                        // Obtén el producto actual desde localStorage
+                        const products = JSON.parse(localStorage.getItem('products')) || [];
+                
+                        if (productIndex >= 0 && productIndex < products.length) {
+                            const productToAdd = { ...products[productIndex], quantity: 1 };
+                
+                            // Verifica si el carrito ya existe en localStorage
+                            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                
+                            // Busca si el producto ya está en el carrito
+                            const existingProductIndex = cart.findIndex(item => item.name === productToAdd.name);
+                
+                            if (existingProductIndex !== -1) {
+                                // Si el producto ya está en el carrito, incrementa la cantidad
+                                cart[existingProductIndex].quantity++;
+                            } else {
+                                // Si el producto no está en el carrito, agrégalo
+                                cart.push(productToAdd);
+                            }
+                
+                            // Actualiza el carrito en localStorage
+                            localStorage.setItem('cart', JSON.stringify(cart));
+                
+                            // Aviso de que se ha agregado un producto al carrito
+                            alert('Producto agregado al carrito: ' + productToAdd.name);
+                        } else {
+                            alert('Índice de producto no válido.');
+                        }
+                    }
+                
+                    // Función para actualizar la lista de productos en la página
+                    function updateProductList(products) {
+                        // ... (resto del código permanece igual)
+                    }
+                
+                    // Llama a la función de actualización al cargar la página
+                    window.onload = function () {
+                        const products = JSON.parse(localStorage.getItem('products')) || [];
+                        updateProductList(products);
+                    };
+                </script>
+                
 </body>
-
 </html>
