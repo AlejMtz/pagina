@@ -722,10 +722,10 @@
                     // Función para actualizar la lista de productos en la página
                     function updateProductList(products) {
                         const productListContainer = document.getElementById('productList');
-            
+                
                         // Limpiar la lista actual de productos en el contenedor
                         productListContainer.innerHTML = '';
-            
+                
                         // Iterar sobre la lista de productos y agregarlos al contenedor
                         products.forEach(product => {
                             const listItem = document.createElement('li');
@@ -737,25 +737,30 @@
                                     <span>${product.price} MXN</span>
                                 </div>
                                 <img src="${product.image}" alt="${product.name}">
-                                <button onclick="addToCart(${products.indexOf(product)})">
+                                <button onclick="addToCart('${JSON.stringify(product)}')">
                                     <img src="img/carrito.jpg" alt="${product.name}">
                                 </button>
                             `;
-            
+                
                             // Agregar el producto a la lista
                             productListContainer.appendChild(listItem);
                         });
                     }
-            
+                
                     // Llama a la función de actualización al cargar la página
                     window.onload = function () {
                         const products = JSON.parse(localStorage.getItem('products')) || [];
                         updateProductList(products);
                     };
-            
-                    function addToCart(productIndex) {
+                
+                    function addToCart(productToAdd) {
+                        // Parsea la cadena JSON para obtener el objeto del producto
+                        const product = JSON.parse(productToAdd);
+                
                         // ... (tu código existente)
                     }
                 </script>
+                
+                
 </body>
 </html>

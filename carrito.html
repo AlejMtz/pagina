@@ -539,11 +539,11 @@
     </header>
 
     <div class="carrito">
-    <h1>Carrito de compras</h1>
+        <h1>Carrito de compras</h1>
     </div>
-    <div id="cartItems">
+    <ul id="cartItems">
         <!-- Aquí se mostrarán los elementos del carrito -->
-    </div>
+    </ul>
     <button id="clearCartBtn">
         <img src="img/eliminar.jpg" alt="Vaciar carrito">
         Vaciar carrito
@@ -556,12 +556,13 @@
     
 
     <script>
+        // Obtén el carrito del localStorage al cargar la página
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
         const cartItemsContainer = document.getElementById('cartItems');
         const clearCartBtn = document.getElementById('clearCartBtn');
         const orderButton = document.getElementById('orderButton');
     
+        // Función para actualizar el contenido del carrito en la página
         function updateCart() {
             cartItemsContainer.innerHTML = '';
     
@@ -569,8 +570,7 @@
                 cartItemsContainer.innerHTML = '<p>El carrito está vacío.</p>';
             } else {
                 cart.forEach(product => {
-                    const cartItem = document.createElement('div');
-                    cartItem.classList.add('cart-item');
+                    const cartItem = document.createElement('li');
                     cartItem.innerHTML = `
                         <img src="${product.image}" alt="${product.name}">
                         <p>${product.name} - ${product.quantity} unidades</p>
@@ -580,55 +580,54 @@
             }
         }
     
-        updateCart();
+        // Actualiza el carrito al cargar la página
+        window.onload = function () {
+            updateCart();
+        };
     
+        // Evento para vaciar el carrito
         clearCartBtn.addEventListener('click', function () {
-            // Limpiar el carrito local y actualizar la vista
             localStorage.removeItem('cart');
             cart.length = 0;
             updateCart();
             alert('Carrito vaciado.');
         });
     
-        orderButton.addEventListener('click', () => {
-            // Obtener los datos del comprador
-            const cliente = {
-                nombre: document.getElementById('nombre').value,
-                apellidos: document.getElementById('apellidos').value,
-                telefono: document.getElementById('telefono').value,
-                email: document.getElementById('email').value,
-            };
+        // Evento para realizar un pedido
+        orderButton.addEventListener('click', function () {
+            // Agrega aquí la lógica para procesar el pedido, si es necesario
+            alert('Pedido realizado. Total: $' + calcularTotal());
+        });
     
-            if (cart.length === 0) {
-                alert('El carrito está vacío. Agregue productos antes de realizar un pedido.');
-                return;
+        // Calcula el total de la compra
+        function calcularTotal() {
+            return cart.reduce((total, product) => total + (product.price * product.quantity), 0);
+        }
+    
+        // Agrega un producto al carrito
+        function addToCart(productToAdd) {
+            // Busca si el producto ya está en el carrito
+            const existingProductIndex = cart.findIndex(item => item.name === productToAdd.name);
+    
+            if (existingProductIndex !== -1) {
+                // Si el producto ya está en el carrito, incrementa la cantidad
+                cart[existingProductIndex].quantity++;
+            } else {
+                // Si el producto no está en el carrito, agrégalo
+                cart.push({ ...productToAdd, quantity: 1 });
             }
     
-            // Enviar datos del pedido al servidor
-            fetch('guardar_pedido.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ cliente, productos: cart }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // Mostrar información del pedido y abrir el PDF en una nueva ventana
-                    alert('Pedido realizado. Total: $' + data.total);
+            // Actualiza el carrito en localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
     
-                    // Limpiar el carrito local y actualizar la vista
-                    cart.length = 0;
-                    localStorage.removeItem('cart');
-                    updateCart();
+            // Aviso de que se ha agregado un producto al carrito
+            alert('Producto agregado al carrito: ' + productToAdd.name);
     
-                    window.open(data.pdf_url, '_blank');
-                })
-                .catch(error => {
-                    console.error('Error al procesar el pedido:', error);
-                });
-        });
+            // Actualiza el contenido del carrito en la página
+            updateCart();
+        }
     </script>
+    
     
     
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
