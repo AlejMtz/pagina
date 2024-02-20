@@ -207,51 +207,52 @@
             const productName = document.getElementById('productName').value;
             const productPrice = parseFloat(document.getElementById('productPrice').value);
             const productImageInput = document.getElementById('productImageInput');
-            const productDescription = document.getElementById('productDescription').value;
-    
-            if (!productName || isNaN(productPrice) || !productImageInput.files.length || !productDescription) {
+
+            if (!productName || isNaN(productPrice) || !productImageInput.files.length) {
                 alert('Por favor, complete todos los campos correctamente.');
                 return;
             }
-    
+
             const productImage = URL.createObjectURL(productImageInput.files[0]);
-    
-            const product = { name: productName, price: productPrice, description: productDescription, image: productImage };
-    
+
+            const product = { name: productName, price: productPrice, image: productImage };
+
             // Guarda el producto en localStorage
             const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
             storedProducts.push(product);
             localStorage.setItem('products', JSON.stringify(storedProducts));
-    
+
             alert('Producto agregado: ' + productName);
         }
-    
-        function deleteProductByName() {
-            const deleteProductName = document.getElementById('deleteProductName').value;
-    
-            if (!deleteProductName) {
-                alert('Por favor, ingrese un nombre de producto válido.');
-                return;
-            }
-    
-            // Obtener la lista actual de productos del localStorage
-            const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
-    
-            // Filtrar la lista para excluir el producto a eliminar
-            const updatedProducts = storedProducts.filter(product => product.name !== deleteProductName);
-    
-            // Verificar si se eliminó algún producto
-            if (updatedProducts.length === storedProducts.length) {
-                alert('El producto no se encontró.');
-                return;
-            }
-    
-            // Guardar la lista actualizada en localStorage
-            localStorage.setItem('products', JSON.stringify(updatedProducts));
-    
-            alert('Producto eliminado: ' + deleteProductName);
-        }
     </script>
+
+<script>
+    function deleteProductByName() {
+        const deleteProductName = document.getElementById('deleteProductName').value;
+
+        if (!deleteProductName) {
+            alert('Por favor, ingrese un nombre de producto válido.');
+            return;
+        }
+
+        // Obtener la lista actual de productos del localStorage
+        const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
+
+        // Filtrar la lista para excluir el producto a eliminar
+        const updatedProducts = storedProducts.filter(product => product.name !== deleteProductName);
+
+        // Verificar si se eliminó algún producto
+        if (updatedProducts.length === storedProducts.length) {
+            alert('El producto no se encontró.');
+            return;
+        }
+
+        // Guardar la lista actualizada en localStorage
+        localStorage.setItem('products', JSON.stringify(updatedProducts));
+
+        alert('Producto eliminado: ' + deleteProductName);
+    }
+</script>
     
 </body>
 </html>
