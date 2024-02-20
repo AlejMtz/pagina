@@ -199,26 +199,30 @@
     </form>
 
     <script>
-        function addProduct() {
-            const productName = document.getElementById('productName').value;
-            const productPrice = parseFloat(document.getElementById('productPrice').value);
-            const productImageInput = document.getElementById('productImageInput');
+        function deleteProductByName() {
+            const deleteProductName = document.getElementById('deleteProductName').value;
 
-            if (!productName || isNaN(productPrice) || !productImageInput.files.length) {
-                alert('Por favor, complete todos los campos correctamente.');
+            if (!deleteProductName) {
+                alert('Por favor, ingrese un nombre de producto válido.');
                 return;
             }
 
-            const productImage = URL.createObjectURL(productImageInput.files[0]);
-
-            const product = { name: productName, price: productPrice, image: productImage };
-
-            // Guarda el producto en localStorage
+            // Obtener la lista actual de productos del localStorage
             const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
-            storedProducts.push(product);
-            localStorage.setItem('products', JSON.stringify(storedProducts));
 
-            alert('Producto agregado: ' + productName);
+            // Filtrar la lista para excluir el producto a eliminar
+            const updatedProducts = storedProducts.filter(product => product.name !== deleteProductName);
+
+            // Verificar si se eliminó algún producto
+            if (updatedProducts.length === storedProducts.length) {
+                alert('El producto no se encontró.');
+                return;
+            }
+
+            // Guardar la lista actualizada en localStorage
+            localStorage.setItem('products', JSON.stringify(updatedProducts));
+
+            alert('Producto eliminado: ' + deleteProductName);
         }
     </script>
 </body>
