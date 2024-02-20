@@ -198,107 +198,18 @@
         </button>
     </form>
 
-    <script>
-        function addProduct() {
-            try {
-                const productName = document.getElementById('productName').value;
-                const productPrice = parseFloat(document.getElementById('productPrice').value);
-                const productImage = document.getElementById('productImage').value;
+<!-- Script para la Página del Administrador -->
+<script>
+    function addProductToMenu(product) {
+    // Dispara un evento personalizado para indicar que se agregó un nuevo producto al menú
+    const event = new CustomEvent('productAddedToMenu', { detail: product });
+    document.dispatchEvent(event);
 
-                if (productName && !isNaN(productPrice) && productImage) {
-                    // Obtén la lista de productos actual desde localStorage
-                    let products = JSON.parse(localStorage.getItem('products')) || [];
-
-                    // Agrega el nuevo producto a la lista de productos
-                    const newProduct = { name: productName, price: productPrice, image: productImage };
-                    products.push(newProduct);
-
-                    // Actualiza la lista de productos en localStorage
-                    localStorage.setItem('products', JSON.stringify(products));
-
-                    // Llama a la función para actualizar la lista de productos en la página actual
-                    updateProductList(products);
-
-                    // Muestra la alerta de producto agregado
-                    alert('Producto agregado correctamente.');
-
-                    // Agrega la clase de desvanecimiento y quítala después de un tiempo
-                    const productList = document.getElementById('productList');
-                    const newProductElement = document.createElement('li');
-                    newProductElement.innerHTML = `
-                        <h3>${newProduct.name}</h3>
-                        <p>${newProduct.description || ''}</p>
-                        <div class="prices">
-                            <span>${newProduct.price} MXN</span>
-                        </div>
-                        <img src="${newProduct.image}" alt="${newProduct.name}">
-                        <button onclick="addToCart(${products.indexOf(newProduct)})">
-                            <img src="img/carrito.jpg" alt="${newProduct.name}">
-                        </button>
-                    `;
-                    productList.appendChild(newProductElement);
-
-                    // Agrega la clase de desvanecimiento
-                    newProductElement.classList.add('fade-out');
-
-                    // Quita la clase después de un tiempo para la próxima animación
-                    setTimeout(() => {
-                        newProductElement.classList.remove('fade-out');
-                    }, 1500); // Tiempo de la animación en milisegundos
-                } else {
-                    alert('Por favor, completa todos los campos correctamente.');
-                }
-            } catch (error) {
-                console.error('Error en la función addProduct:', error);
-            }
-        }
-
-        function deleteProductByName() {
-            const deleteProductName = document.getElementById('deleteProductName').value.trim();
-            let products = JSON.parse(localStorage.getItem('products')) || [];
-
-            const productIndex = products.findIndex(product => product.name === deleteProductName);
-
-            if (productIndex !== -1) {
-                const updatedProducts = products.filter((product, index) => index !== productIndex);
-
-                localStorage.setItem('products', JSON.stringify(updatedProducts));
-
-                alert('Producto eliminado: ' + deleteProductName);
-            } else {
-                alert('Producto no encontrado.');
-            }
-        }
-
-        // Función para actualizar la lista de productos en la página
-        function updateProductList(products) {
-            const productList = document.getElementById('productList');
-            productList.innerHTML = ''; // Limpiar la lista antes de volver a llenar
-
-            products.forEach(product => {
-                const productElement = document.createElement('li');
-                productElement.innerHTML = `
-                    <h3>${product.name}</h3>
-                    <p>${product.description || ''}</p>
-                    <div class="prices">
-                        <span>${product.price} MXN</span>
-                    </div>
-                    <img src="${product.image}" alt="${product.name}">
-                    <button onclick="addToCart(${products.indexOf(product)})">
-                        <img src="img/carrito.jpg" alt="${product.name}">
-                    </button>
-                `;
-                productList.appendChild(productElement);
-            });
-        }
-
-        // Llama a la función de actualización al cargar la página
-        window.onload = function () {
-            const products = JSON.parse(localStorage.getItem('products')) || [];
-            updateProductList(products);
-        };
-    </script>
-
-    <ul id="productList"></ul>
+    // Aviso de que el producto se ha agregado correctamente
+    console.log('Producto agregado al menú:', product.name);
+    alert('Producto agregado al menú: ' + product.name);
+}
+</script>
+    
 </body>
 </html>
