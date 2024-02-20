@@ -178,7 +178,7 @@
     </form>
 
     <form id="productForm">
-        <h1 class="form-title">Agregar Prodcuto</h1>
+        <h1 class="form-title">Agregar Producto</h1>
         <br>
         <label for="productName">Nombre del producto:</label>
         <br>
@@ -188,9 +188,9 @@
         <br>
         <input type="number" id="productPrice" step="0.01" required><br>
 
-        <label for="productImage">URL de la imagen:</label>
+        <label for="productImage">Imagen:</label>
         <br>
-        <input type="text" id="productImage" required><br>
+        <input type="file" id="productImageInput" accept="image/*" required><br>
 
         <button id="orderButton" type="button" onclick="addProduct()">
             <img src="img/agregar.jpg" alt="Agregar">
@@ -198,18 +198,28 @@
         </button>
     </form>
 
-<!-- Script para la Página del Administrador -->
-<script>
-    function addProductToMenu(product) {
-    // Dispara un evento personalizado para indicar que se agregó un nuevo producto al menú
-    const event = new CustomEvent('productAddedToMenu', { detail: product });
-    document.dispatchEvent(event);
+    <script>
+        function addProduct() {
+            const productName = document.getElementById('productName').value;
+            const productPrice = parseFloat(document.getElementById('productPrice').value);
+            const productImageInput = document.getElementById('productImageInput');
 
-    // Aviso de que el producto se ha agregado correctamente
-    console.log('Producto agregado al menú:', product.name);
-    alert('Producto agregado al menú: ' + product.name);
-}
-</script>
-    
+            if (!productName || isNaN(productPrice) || !productImageInput.files.length) {
+                alert('Por favor, complete todos los campos correctamente.');
+                return;
+            }
+
+            const productImage = URL.createObjectURL(productImageInput.files[0]);
+
+            const product = { name: productName, price: productPrice, image: productImage };
+
+            // Guarda el producto en localStorage
+            const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
+            storedProducts.push(product);
+            localStorage.setItem('products', JSON.stringify(storedProducts));
+
+            alert('Producto agregado: ' + productName);
+        }
+    </script>
 </body>
 </html>

@@ -684,10 +684,10 @@
                     </button>
                 </div>
             </div>
+
+            <ul id="productList"></ul>
         </div>
     </section>
-
-    <ul id="productList"></ul>
 
     <div class="container-fluid footer bg-light py-5" style="margin-top: 90px;">
         <div class="container text-center py-5">
@@ -758,59 +758,63 @@
                     }
                 </script>     
 
-              <!-- Script para la Página del Menú -->
 <script>
-    // Función para actualizar la lista de productos en la página
-    function updateProductList(products) {
-        const productListContainer = document.getElementById('productList');
+    // Función para mostrar la lista de productos en el menú
+    function displayMenuProducts() {
+        // Obtener la lista actual de productos del localStorage
+        const menuProducts = JSON.parse(localStorage.getItem('products')) || [];
+        // Obtener la referencia a la lista en la página del menú
+        const productList = document.getElementById('productList');
 
-        // Limpiar la lista actual de productos en el contenedor
-        productListContainer.innerHTML = '';
+        // Limpiar la lista actual
+        productList.innerHTML = '';
 
-        // Iterar sobre la lista de productos y agregarlos al contenedor
-        products.forEach(product => {
+        // Recorrer la lista de productos y agregar elementos a la lista en la página
+        menuProducts.forEach(product => {
             const listItem = document.createElement('li');
-            listItem.innerHTML = `
-                <!-- Estructura HTML de un producto, ajusta según tu diseño -->
-                <h3>${product.name}</h3>
-                <p>${product.description || ''}</p>
-                <div class="prices">
-                    <span>${product.price} MXN</span>
-                </div>
-                <img src="${product.image}" alt="${product.name}">
-            `;
 
-            // Agregar el producto a la lista
-            productListContainer.appendChild(listItem);
+            // Crear una imagen y establecer su atributo src
+            const productImage = document.createElement('img');
+            productImage.src = product.image;
+            productImage.alt = product.name;
+
+            // Agregar la imagen al elemento de la lista
+            listItem.appendChild(productImage);
+
+            // Agregar el nombre y precio del producto al elemento de la lista
+            listItem.innerHTML += `${product.name} - $${product.price.toFixed(2)}`;
+
+            // Agregar el elemento de la lista a la lista en la página
+            productList.appendChild(listItem);
         });
     }
 
-    // Llama a la función de actualización al cargar la página
-    window.onload = function () {
-        const products = JSON.parse(localStorage.getItem('products')) || [];
-        updateProductList(products);
-    };
+    // Llamar a la función al cargar la página para mostrar los productos existentes
+    displayMenuProducts();
 
-    // Escucha el evento personalizado 'productAddedToMenu'
+    // Evento para actualizar la lista cuando se agregue un nuevo producto
     document.addEventListener('productAddedToMenu', function (event) {
-        // Obtiene el producto agregado desde el detalle del evento
         const product = event.detail;
 
-        // Obtiene la lista actual de productos desde localStorage
-        let productList = JSON.parse(localStorage.getItem('products')) || [];
+        // Agrega el nuevo producto al listado en la página de menú
+        const productList = document.getElementById('productList');
+        const listItem = document.createElement('li');
 
-        // Agrega el nuevo producto a la lista
-        productList.push(product);
+        // Crear una imagen y establecer su atributo src
+        const productImage = document.createElement('img');
+        productImage.src = product.image;
+        productImage.alt = product.name;
 
-        // Actualiza la lista en localStorage
-        localStorage.setItem('products', JSON.stringify(productList));
+        // Agregar la imagen al elemento de la lista
+        listItem.appendChild(productImage);
 
-        // Actualiza la lista de productos en la página
-        updateProductList(productList);
+        // Agregar el nombre y precio del producto al elemento de la lista
+        listItem.innerHTML += `${product.name} - $${product.price.toFixed(2)}`;
+
+        // Agregar el elemento de la lista a la lista en la página
+        productList.appendChild(listItem);
     });
 </script>
-
-
 
 </body>
 </html>
