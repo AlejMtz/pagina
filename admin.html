@@ -209,38 +209,42 @@
             const productImage = document.getElementById('productImage').value;
     
             if (productName && !isNaN(productPrice) && productImage) {
-                const newProduct = { name: productName, price: productPrice, quantity: 1, image: productImage };
-    
+                // Obtén la lista de productos actual desde localStorage
                 let products = JSON.parse(localStorage.getItem('products')) || [];
     
+                // Agrega el nuevo producto a la lista de productos
+                const newProduct = { name: productName, price: productPrice, image: productImage };
                 products.push(newProduct);
     
+                // Actualiza la lista de productos en localStorage
                 localStorage.setItem('products', JSON.stringify(products));
     
-                alert('Producto agregado correctamente.');
+                // Llama a la función para actualizar la lista de productos en la página actual
+                updateProductList(products);
     
-                window.location.href = 'menu.html';
+                alert('Producto agregado correctamente.');
             } else {
                 alert('Por favor, completa todos los campos correctamente.');
             }
         }
-
+    
         function deleteProductByName() {
             const deleteProductName = document.getElementById('deleteProductName').value.trim();
-            const products = JSON.parse(localStorage.getItem('products')) || [];
-
+            let products = JSON.parse(localStorage.getItem('products')) || [];
+    
             const productIndex = products.findIndex(product => product.name === deleteProductName);
-
+    
             if (productIndex !== -1) {
                 const updatedProducts = products.filter((product, index) => index !== productIndex);
-
+    
                 localStorage.setItem('products', JSON.stringify(updatedProducts));
-
+    
                 alert('Producto eliminado: ' + deleteProductName);
             } else {
                 alert('Producto no encontrado.');
             }
         }
     </script>
+    
 </body>
 </html>

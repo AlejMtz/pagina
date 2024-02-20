@@ -719,48 +719,43 @@
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
                 <script>
-                    function addToCart(productIndex) {
-                        // Obtén el producto actual desde localStorage
-                        const products = JSON.parse(localStorage.getItem('products')) || [];
-                
-                        if (productIndex >= 0 && productIndex < products.length) {
-                            const productToAdd = { ...products[productIndex], quantity: 1 };
-                
-                            // Verifica si el carrito ya existe en localStorage
-                            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                
-                            // Busca si el producto ya está en el carrito
-                            const existingProductIndex = cart.findIndex(item => item.name === productToAdd.name);
-                
-                            if (existingProductIndex !== -1) {
-                                // Si el producto ya está en el carrito, incrementa la cantidad
-                                cart[existingProductIndex].quantity++;
-                            } else {
-                                // Si el producto no está en el carrito, agrégalo
-                                cart.push(productToAdd);
-                            }
-                
-                            // Actualiza el carrito en localStorage
-                            localStorage.setItem('cart', JSON.stringify(cart));
-                
-                            // Aviso de que se ha agregado un producto al carrito
-                            alert('Producto agregado al carrito: ' + productToAdd.name);
-                        } else {
-                            alert('Índice de producto no válido.');
-                        }
-                    }
-                
                     // Función para actualizar la lista de productos en la página
                     function updateProductList(products) {
-                        // ... (resto del código permanece igual)
+                        const productListContainer = document.getElementById('productList');
+            
+                        // Limpiar la lista actual de productos en el contenedor
+                        productListContainer.innerHTML = '';
+            
+                        // Iterar sobre la lista de productos y agregarlos al contenedor
+                        products.forEach(product => {
+                            const listItem = document.createElement('li');
+                            listItem.innerHTML = `
+                                <!-- Estructura HTML de un producto, ajusta según tu diseño -->
+                                <h3>${product.name}</h3>
+                                <p>${product.description || ''}</p>
+                                <div class="prices">
+                                    <span>${product.price} MXN</span>
+                                </div>
+                                <img src="${product.image}" alt="${product.name}">
+                                <button onclick="addToCart(${products.indexOf(product)})">
+                                    <img src="img/carrito.jpg" alt="${product.name}">
+                                </button>
+                            `;
+            
+                            // Agregar el producto a la lista
+                            productListContainer.appendChild(listItem);
+                        });
                     }
-                
+            
                     // Llama a la función de actualización al cargar la página
                     window.onload = function () {
                         const products = JSON.parse(localStorage.getItem('products')) || [];
                         updateProductList(products);
                     };
+            
+                    function addToCart(productIndex) {
+                        // ... (tu código existente)
+                    }
                 </script>
-                
 </body>
 </html>
