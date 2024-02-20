@@ -302,7 +302,6 @@
 </head>
 
 <body>
-
     <header class="header">
 
         <div class="menu container">
@@ -686,8 +685,9 @@
                 </div>
             </div>
         </div>
-        <ul id="productList"></ul>
     </section>
+
+    <ul id="productList"></ul>
 
     <div class="container-fluid footer bg-light py-5" style="margin-top: 90px;">
         <div class="container text-center py-5">
@@ -720,47 +720,97 @@
 
                 <script>
                     function addToCart(productIndex) {
-                        // Obtén el producto actual desde localStorage
-                        const products = JSON.parse(localStorage.getItem('products')) || [];
+                        const products = [
+                            { name: 'PROCESADORA DE ALIMENTOS', price: 1500.00, quantity: 1, image: 'img/procesador.jpg' },
+                            { name: 'CORTADORA PROFESIONAL DE VERDURAS', price: 8000.00, quantity: 1, image: 'img/cortadora_v.jpg' },
+                            { name: 'LICUADORA PROFESIONAL', price: 3000.00, quantity: 1, image: 'img/licuadora.jpg' },
+                            { name: 'CORTADORA DE CARNES Y QUESOS', price: 6000.00, quantity: 1, image: 'img/cortadora_c.jpg' },
+                            { name: 'BATIDORA PROFESIONAL', price: 1200.00, quantity: 1, image: 'img/batidora.jpg' },
+                            { name: 'MOLINO PROFESIONAL DE CARNE', price: 5700.00, quantity: 1, image: 'img/molino.jpg' },
+                            { name: 'CORTADORA DE FRUTAS', price: 3000.00, quantity: 1, image: 'img/cortadora_f.jpg' },
+                            { name: 'EXTRACTOR AUTOMATICO DE ACEITE', price: 9100.00, quantity: 1, image: 'img/aceite.jpg' },
+                            { name: 'PICADORA DE CARNE ELECTRICA', price: 1000.00, quantity: 1, image: 'img/picadora.jpg' },
+                            { name: 'MOLINILLO DE GRANO ELECTRICO', price: 3300.00, quantity: 1, image: 'img/molinillo.jpg' },
+                        ];
                 
-                        if (productIndex >= 0 && productIndex < products.length) {
-                            const productToAdd = { ...products[productIndex], quantity: 1 };
+                        // Obtiene el producto actual
+                        const product = products[productIndex];
                 
-                            // Verifica si el carrito ya existe en localStorage
-                            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                        // Verifica si el carrito ya existe en localStorage
+                        let cart = JSON.parse(localStorage.getItem('cart')) || [];
                 
-                            // Busca si el producto ya está en el carrito
-                            const existingProductIndex = cart.findIndex(item => item.name === productToAdd.name);
+                        // Busca si el producto ya está en el carrito
+                        const existingProductIndex = cart.findIndex(item => item.name === product.name);
                 
-                            if (existingProductIndex !== -1) {
-                                // Si el producto ya está en el carrito, incrementa la cantidad
-                                cart[existingProductIndex].quantity++;
-                            } else {
-                                // Si el producto no está en el carrito, agrégalo
-                                cart.push(productToAdd);
-                            }
-                
-                            // Actualiza el carrito en localStorage
-                            localStorage.setItem('cart', JSON.stringify(cart));
-                
-                            // Aviso de que se ha agregado un producto al carrito
-                            alert('Producto agregado al carrito: ' + productToAdd.name);
+                        if (existingProductIndex !== -1) {
+                            // Si el producto ya está en el carrito, incrementa la cantidad
+                            cart[existingProductIndex].quantity++;
                         } else {
-                            alert('Índice de producto no válido.');
+                            // Si el producto no está en el carrito, agrégalo
+                            cart.push(product);
                         }
+                
+                        // Actualiza el carrito en localStorage
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                
+                        // Aviso de que se ha agregado un producto al carrito
+                        alert('Producto agregado al carrito: ' + product.name);
                     }
-                
-                    // Función para actualizar la lista de productos en la página
-                    function updateProductList(products) {
-                        // ... (resto del código permanece igual)
-                    }
-                
-                    // Llama a la función de actualización al cargar la página
-                    window.onload = function () {
-                        const products = JSON.parse(localStorage.getItem('products')) || [];
-                        updateProductList(products);
-                    };
-                </script>
-                
+                </script>     
+
+              <!-- Script para la Página del Menú -->
+<script>
+    // Función para actualizar la lista de productos en la página
+    function updateProductList(products) {
+        const productListContainer = document.getElementById('productList');
+
+        // Limpiar la lista actual de productos en el contenedor
+        productListContainer.innerHTML = '';
+
+        // Iterar sobre la lista de productos y agregarlos al contenedor
+        products.forEach(product => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <!-- Estructura HTML de un producto, ajusta según tu diseño -->
+                <h3>${product.name}</h3>
+                <p>${product.description || ''}</p>
+                <div class="prices">
+                    <span>${product.price} MXN</span>
+                </div>
+                <img src="${product.image}" alt="${product.name}">
+            `;
+
+            // Agregar el producto a la lista
+            productListContainer.appendChild(listItem);
+        });
+    }
+
+    // Llama a la función de actualización al cargar la página
+    window.onload = function () {
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+        updateProductList(products);
+    };
+
+    // Escucha el evento personalizado 'productAddedToMenu'
+    document.addEventListener('productAddedToMenu', function (event) {
+        // Obtiene el producto agregado desde el detalle del evento
+        const product = event.detail;
+
+        // Obtiene la lista actual de productos desde localStorage
+        let productList = JSON.parse(localStorage.getItem('products')) || [];
+
+        // Agrega el nuevo producto a la lista
+        productList.push(product);
+
+        // Actualiza la lista en localStorage
+        localStorage.setItem('products', JSON.stringify(productList));
+
+        // Actualiza la lista de productos en la página
+        updateProductList(productList);
+    });
+</script>
+
+
+
 </body>
 </html>

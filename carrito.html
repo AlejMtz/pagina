@@ -583,7 +583,6 @@
         updateCart();
     
         clearCartBtn.addEventListener('click', function () {
-            // Limpiar el carrito local y actualizar la vista
             localStorage.removeItem('cart');
             cart.length = 0;
             updateCart();
@@ -591,20 +590,14 @@
         });
     
         orderButton.addEventListener('click', () => {
-            // Obtener los datos del comprador
             const cliente = {
+                // Obtener los datos del comprador
                 nombre: document.getElementById('nombre').value,
                 apellidos: document.getElementById('apellidos').value,
                 telefono: document.getElementById('telefono').value,
                 email: document.getElementById('email').value,
             };
     
-            if (cart.length === 0) {
-                alert('El carrito está vacío. Agregue productos antes de realizar un pedido.');
-                return;
-            }
-    
-            // Enviar datos del pedido al servidor
             fetch('guardar_pedido.php', {
                 method: 'POST',
                 headers: {
@@ -614,14 +607,13 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    // Mostrar información del pedido y abrir el PDF en una nueva ventana
                     alert('Pedido realizado. Total: $' + data.total);
     
-                    // Limpiar el carrito local y actualizar la vista
                     cart.length = 0;
                     localStorage.removeItem('cart');
                     updateCart();
     
+                    // Abrir el PDF en una nueva ventana
                     window.open(data.pdf_url, '_blank');
                 })
                 .catch(error => {
@@ -629,7 +621,6 @@
                 });
         });
     </script>
-    
     
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">

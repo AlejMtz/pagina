@@ -90,37 +90,32 @@
             width: 100%;
         }
 
-
         #deleteProductForm {
             text-align: center;
-            background-color: rgba(255, 204, 188, 0.3); /* Color mamey desvanecido */
+            background-color: rgba(255, 204, 188, 0.3);
             padding: 20px;
-            border-radius: 15px; /* Bordes redondeados */
+            border-radius: 15px;
             margin: 20px;
             width: 30%;
             margin-top: 1cm;
-            margin-left: 22cm; /* Mover a la izquierda 5cm */
+            margin-left: 22cm;
             border: 2px solid transparent;
-            transition: background-color 0.3s ease; /* Agregada transición solo para el fondo */
-
-            /* Mantener el contenedor estático */
+            transition: background-color 0.3s ease;
             position: relative;
             z-index: 1;
         }
 
         #productForm {
             text-align: center;
-            background-color: rgba(153, 194, 164, 0.3); /* Color mamey desvanecido */
+            background-color: rgba(153, 194, 164, 0.3);
             padding: 20px;
-            border-radius: 15px; /* Bordes redondeados */
+            border-radius: 15px;
             margin: 20px;
             width: 30%;
             margin-top: -7.4cm;
-            margin-left: 5cm; /* Mover a la izquierda 5cm */
+            margin-left: 5cm;
             border: 2px solid transparent;
-            transition: background-color 0.3s ease; /* Agregada transición solo para el fondo */
-
-            /* Mantener el contenedor estático */
+            transition: background-color 0.3s ease;
             position: relative;
             z-index: 1;
         }
@@ -157,10 +152,11 @@
         }
 
         #orderButton {
-            background-color:springgreen;
+            background-color: springgreen;
             margin-top: 0.5cm;
             margin-left: 3.5cm;
         }
+
     </style>
 </head>
 <body>
@@ -178,7 +174,7 @@
         <button id="clearCartBtn" type="button" onclick="deleteProductByName()">
             <img src="img/eliminar.jpg" alt="Eliminar">
             Eliminar
-        </button>        
+        </button>
     </form>
 
     <form id="productForm">
@@ -202,45 +198,18 @@
         </button>
     </form>
 
-    <script>
-        function addProduct() {
-            const productName = document.getElementById('productName').value;
-            const productPrice = parseFloat(document.getElementById('productPrice').value);
-            const productImage = document.getElementById('productImage').value;
-    
-            if (productName && !isNaN(productPrice) && productImage) {
-                const newProduct = { name: productName, price: productPrice, quantity: 1, image: productImage };
-    
-                let products = JSON.parse(localStorage.getItem('products')) || [];
-    
-                products.push(newProduct);
-    
-                localStorage.setItem('products', JSON.stringify(products));
-    
-                alert('Producto agregado correctamente.');
-    
-                window.location.href = 'menu.html';
-            } else {
-                alert('Por favor, completa todos los campos correctamente.');
-            }
-        }
+<!-- Script para la Página del Administrador -->
+<script>
+    function addProductToMenu(product) {
+    // Dispara un evento personalizado para indicar que se agregó un nuevo producto al menú
+    const event = new CustomEvent('productAddedToMenu', { detail: product });
+    document.dispatchEvent(event);
 
-        function deleteProductByName() {
-            const deleteProductName = document.getElementById('deleteProductName').value.trim();
-            const products = JSON.parse(localStorage.getItem('products')) || [];
-
-            const productIndex = products.findIndex(product => product.name === deleteProductName);
-
-            if (productIndex !== -1) {
-                const updatedProducts = products.filter((product, index) => index !== productIndex);
-
-                localStorage.setItem('products', JSON.stringify(updatedProducts));
-
-                alert('Producto eliminado: ' + deleteProductName);
-            } else {
-                alert('Producto no encontrado.');
-            }
-        }
-    </script>
+    // Aviso de que el producto se ha agregado correctamente
+    console.log('Producto agregado al menú:', product.name);
+    alert('Producto agregado al menú: ' + product.name);
+}
+</script>
+    
 </body>
 </html>
