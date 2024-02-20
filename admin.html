@@ -205,7 +205,7 @@
     <script>
         function addProduct() {
             const productName = document.getElementById('productName').value;
-            const productDescription = document.getElementById('productDescription').value; // Nuevo campo
+            const productDescription = document.getElementById('productDescription').value; 
             const productPrice = parseFloat(document.getElementById('productPrice').value);
             const productImageInput = document.getElementById('productImageInput');
     
@@ -216,7 +216,7 @@
     
             const productImage = URL.createObjectURL(productImageInput.files[0]);
     
-            const product = { name: productName, description: productDescription, price: productPrice, image: productImage }; // Añadido description
+            const product = { name: productName, description: productDescription, price: productPrice, image: productImage }; 
     
             // Guarda el producto en localStorage
             const storedProducts = JSON.parse(localStorage.getItem('products')) || [];

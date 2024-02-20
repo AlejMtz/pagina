@@ -63,7 +63,6 @@ $comprobanteHTML = "
     <br>
     <h1>Comprobante de Compra</h1>
     <p>Cliente: {$cliente['nombre']} {$cliente['apellidos']}</p>
-    <p>Correo electrónico: {$cliente['email']}</p>
     <h2>Productos Comprados:</h2>
     <ul>
 ";
@@ -73,6 +72,8 @@ foreach ($productos as $producto) {
 $comprobanteHTML .= "
     </ul>
     <p>Total: {$total}</p>
+    <p>Direccion de Entrega: {$cliente['email']}</p>
+    <p>El tiempo de llegada esta estimado entre 1 a 5 dias despues de la compra<p>
 </body>
 </html>
 ";
