@@ -199,6 +199,30 @@
     </form>
 
     <script>
+        function addProduct() {
+            const productName = document.getElementById('productName').value;
+            const productPrice = parseFloat(document.getElementById('productPrice').value);
+            const productImageInput = document.getElementById('productImageInput');
+
+            if (!productName || isNaN(productPrice) || !productImageInput.files.length) {
+                alert('Por favor, complete todos los campos correctamente.');
+                return;
+            }
+
+            const productImage = URL.createObjectURL(productImageInput.files[0]);
+
+            const product = { name: productName, price: productPrice, image: productImage };
+
+            // Guarda el producto en localStorage
+            const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
+            storedProducts.push(product);
+            localStorage.setItem('products', JSON.stringify(storedProducts));
+
+            alert('Producto agregado: ' + productName);
+        }
+    </script>
+
+    <script>
         function deleteProductByName() {
             const deleteProductName = document.getElementById('deleteProductName').value;
 
