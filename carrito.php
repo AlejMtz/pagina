@@ -12,6 +12,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Agregar el producto al carrito (realiza las operaciones necesarias según tu lógica)
         $_SESSION['carrito'][] = $producto_id;
     }
+
+    // Verificar si se ha enviado el formulario para eliminar un producto
+    if (isset($_POST['eliminar_producto'])) {
+        $eliminar_producto_id = $_POST['eliminar_producto'];
+
+        // Buscar la posición del producto en el carrito y eliminarlo
+        $key = array_search($eliminar_producto_id, $_SESSION['carrito']);
+        if ($key !== false) {
+            unset($_SESSION['carrito'][$key]);
+        }
+    }
 }
 
 // Mostrar el carrito
