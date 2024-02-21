@@ -20,10 +20,11 @@ if ($resultado->num_rows > 0) {
         echo "<model-viewer src='" . $row['modelo3d'] . "' style='width: 200px; height: 200px;'></model-viewer><br>";
 
         // Agregar botón "Agregar al carrito"
-        echo "<form action='carrito.php' method='post'>";
-        echo "<input type='hidden' name='producto_id' value='" . $row['id'] . "'>";
-        echo "<input type='submit' value='Agregar al carrito'>";
-        echo "</form>";
+        echo "<form onsubmit='agregarAlCarrito(event, " . $row['id'] . ")'>";
+echo "<input type='submit' value='Agregar al carrito'>";
+echo "</form>";
+
+        
     }
 } else {
     echo "No hay productos disponibles.";
@@ -31,3 +32,27 @@ if ($resultado->num_rows > 0) {
 
 $conexion->close();
 ?>
+
+<script>
+function agregarAlCarrito(event, productoId) {
+    event.preventDefault(); // Evitar la acción predeterminada del formulario
+
+    // Realizar una solicitud AJAX para agregar el producto al carrito
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // La solicitud se ha completado con éxito
+            alert("Producto agregado al carrito");
+        }
+    };
+
+    // Configurar la solicitud AJAX
+    xhr.open("POST", "agregar_al_carrito.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // Enviar la solicitud con el ID del producto
+    xhr.send("producto_id=" + productoId);
+}
+</script>
+
+
