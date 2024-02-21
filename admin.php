@@ -1,3 +1,7 @@
+<?php
+$con = mysqli_connect("localhost", "root", "", "agendas") or die ("Error");
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -33,22 +37,91 @@
     <button type="submit">Agregar Producto</button>
 </form>
 
-
-<!-- Agregamos botones para modificar y eliminar -->
-<div id="botonesModificarEliminar" style="margin-top: 20px;">
-    <button type="button" onclick="modificarProducto()">Modificar Producto</button>
-    <button type="button" onclick="eliminarProducto()">Eliminar Producto</button>
 </div>
 
 
-<!-- Agregamos un elemento para mostrar el mensaje -->
-<div id="mensaje" style="display: none; background-color: #4CAF50; color: white; padding: 10px; text-align: center;">
-    <?php
-        // Mostrar el mensaje si existe en la URL
-        if (isset($_GET['mensaje'])) {
-            echo htmlspecialchars($_GET['mensaje']);
+
+<div>
+  <div
+    class="table-responsive"
+  >
+    <table
+      class="table table-primary"
+    >
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">NOMBRE</th>
+          <th scope="col">DESCRIPCION</th>
+          <th scope="col">PRECIO</th>
+          <th scope="col">STOCK</th>
+          <th scope="col">IMAGEN</th>
+          <th scope="col">MODELO 3D</th>
+          <th scope="col">EDITAR</th>
+          <th scope="col">ELIMINAR</th>
+        </tr>
+
+        <?php
+        $consulta = "SELECT * FROM productos";
+        $ejecutar = mysqli_query($con,$consulta);
+
+        $i=0;
+
+        while($fila=mysqli_fetch_array($ejecutar)){
+          $id=$fila['id'];
+          $nombre=$fila['nombre'];
+          $descripcion=$fila['descripcion'];
+          $precio=$fila['precio'];
+          $stock=$fila['stock'];
+          $imagen=$fila['imagen'];
+          $modelo3d=$fila['modelo3d'];
+
+          $i++;
+
+        ?>
+        
+        <tr aling=center>
+
+            <td><?php echo $id; ?> </td>
+            <td><?php echo $nombre; ?></td>
+            <td><?php echo $descripcion; ?></td>
+            <td><?php echo $precio; ?></td>
+            <td><?php echo $stock; ?></td>
+            <td><?php echo $imagen; ?></td>
+            <td><?php echo $modelo3d; ?></td>
+            <td><a href="admin.php?editar=<?php echo $id; ?>">Editar</a></td>
+            <td><a href="admin.php?borrar=<?php echo $id; ?>">Borrar</a></td>
+
+        </tr>
+        <?php } ?>
+
+        <?php
+        if(isset($_GET['editar'])){
+          include("edicion.php");
         }
-    ?>
+    
+        if(isset($_GET['borrar'])){
+          $borrar_id = $_GET['borrar'];
+          $borrar = "DELETE FROM productos WHERE id='$borrar_id'";
+          $ejecutar = mysqli_query($con,$borrar);
+    
+          if($ejecutar){
+            echo "<script>alert('PRODUCTO ELIMINADO!')</script>";
+            echo "<script>window.open('admin.php','_self')</script>";
+          }
+        }
+        ?>
+
+
+
+      </thead>
+    </table>
+
+
+
+
+  </div>
+  
 </div>
 
 <script>
