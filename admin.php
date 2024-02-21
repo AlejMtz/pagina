@@ -19,6 +19,9 @@
     <label for="precio">Precio:</label>
     <input type="number" id="precio" name="precio" step="0.01" required><br>
 
+    <label for="stock">Stock:</label>
+    <input type="number" id="stock" name="stock" step="1" required><br>
+
     <label for="imagen">Imagen:</label>
     <input type="file" id="imagen" name="imagen" accept="image/*" onchange="previewImage()"><br>
     <img id="imagenPreview" alt="Imagen previa" style="max-width: 200px; display: none;"><br>
@@ -31,7 +34,37 @@
 </form>
 
 <!-- Agregamos un elemento para mostrar el mensaje -->
-<div id="mensaje" style="display: none; background-color: #4CAF50; color: white; padding: 10px; text-align: center;"></div>
+<!-- Agregamos un elemento para mostrar el mensaje -->
+<div id="mensaje" style="display: none; background-color: #4CAF50; color: white; padding: 10px; text-align: center;">
+    <?php
+        // Mostrar el mensaje si existe en la URL
+        if (isset($_GET['mensaje'])) {
+            echo htmlspecialchars($_GET['mensaje']);
+        }
+    ?>
+</div>
+
+<script>
+   // Función para mostrar el mensaje y recargar la página después de 2 segundos
+   function mostrarMensajeYRecargar(mensaje) {
+        var mensajeElement = document.getElementById('mensaje');
+        mensajeElement.innerHTML = mensaje;
+        mensajeElement.style.display = 'block';
+
+        // Desaparecer el mensaje después de 2 segundos
+        setTimeout(function () {
+            mensajeElement.style.display = 'none';
+        }, 2000);
+
+        // Recargar la página solo si hay un mensaje
+        if (mensaje) {
+            // Recargar la página después de 2.5 segundos (0.5 segundos después de desaparecer el mensaje)
+            setTimeout(function () {
+                location.reload();
+            }, 2500);
+        }
+    }
+</script>
 
 <script>
     function previewImage() {
@@ -86,25 +119,7 @@ function createBlobFromURL(url) {
 }
 
 
-   // Función para mostrar el mensaje y recargar la página después de 2 segundos
-   function mostrarMensajeYRecargar(mensaje) {
-        var mensajeElement = document.getElementById('mensaje');
-        mensajeElement.innerHTML = mensaje;
-        mensajeElement.style.display = 'block';
 
-        // Desaparecer el mensaje después de 2 segundos
-        setTimeout(function () {
-            mensajeElement.style.display = 'none';
-        }, 2000);
-
-        // Recargar la página solo si hay un mensaje
-        if (mensaje) {
-            // Recargar la página después de 2.5 segundos (0.5 segundos después de desaparecer el mensaje)
-            setTimeout(function () {
-                location.reload();
-            }, 2500);
-        }
-    }
 
 </script>
 
