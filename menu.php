@@ -12,40 +12,19 @@ $query = "SELECT * FROM productos";
 $resultado = $conexion->query($query);
 
 if ($resultado->num_rows > 0) {
-    // Incluir las bibliotecas de Three.js y GLTFLoader
-    echo "<script src='https://threejs.org/build/three.js'></script>";
-    echo "<script src='https://threejs.org/examples/js/loaders/GLTFLoader.js'></script>";
-
     // Mostrar la información de los productos
     while ($row = $resultado->fetch_assoc()) {
         echo "<h3>" . $row['nombre'] . "</h3>";
         echo "<p>Descripción: " . $row['descripcion'] . "</p>";
         echo "<p>Precio: $" . $row['precio'] . "</p>";
         echo "<img src='" . $row['imagen'] . "' alt='Imagen del producto' style='max-width: 200px;'><br>";
+        echo "<model-viewer src='" . $row['modelo3d'] . "' style='width: 200px; height: 200px;'></model-viewer><br>";
 
-        // Renderizar el modelo 3D con Three.js
-        echo "<div id='modelo3d_" . $row['id'] . "' style='width: 200px; height: 200px;'></div>";
-        echo "<script>
-                  var scene = new THREE.Scene();
-                  var camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-                  var renderer = new THREE.WebGLRenderer();
-
-                  document.getElementById('modelo3d_" . $row['id'] . "').appendChild(renderer.domElement);
-
-                  var loader = new THREE.GLTFLoader();
-                  loader.load('" . $row['modelo3d'] . "', function (gltf) {
-                    scene.add(gltf.scene);
-                  });
-
-                  camera.position.z = 5;
-
-                  function animate() {
-                    requestAnimationFrame(animate);
-                    renderer.render(scene, camera);
-                  }
-
-                  animate();
-               </script><br>";
+        // Agregar botón "Agregar al carrito"
+        echo "<form action='agregar_al_carrito.php' method='post'>";
+        echo "<input type='hidden' name='producto_id' value='" . $row['id'] . "'>";
+        echo "<input type='submit' value='Agregar al carrito'>";
+        echo "</form>";
     }
 } else {
     echo "No hay productos disponibles.";
