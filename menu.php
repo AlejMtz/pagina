@@ -15,7 +15,7 @@ if ($resultado->num_rows > 0) {
         echo "<h3>" . $row['nombre'] . "</h3>";
         echo "<p>Descripción: " . $row['descripcion'] . "</p>";
         echo "<p>Precio: $" . $row['precio'] . "</p>";
-        echo "<p>Stock: $" . $row['stock'] . "</p>";
+        echo "<p>Stock:" . $row['stock'] . "</p>";
         echo "<img src='" . $row['imagen'] . "' alt='Imagen del producto' style='max-width: 200px;'><br>";
         echo "<model-viewer src='" . $row['modelo3d'] . "' style='width: 200px; height: 200px;'></model-viewer><br>";
 
