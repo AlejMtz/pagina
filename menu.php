@@ -20,10 +20,9 @@ if ($resultado->num_rows > 0) {
         echo "<model-viewer src='" . $row['modelo3d'] . "' style='width: 200px; height: 200px;'></model-viewer><br>";
 
         // Agregar botón "Agregar al carrito"
-        echo "<form onsubmit='agregarAlCarrito(event, " . $row['id'] . ")'>";
-echo "<input type='submit' value='Agregar al carrito'>";
-echo "</form>";
-
+        echo "<form onsubmit='agregarAlCarrito(event, " . $row['id'] . ", \"" . $row['imagen'] . "\")'>";
+        echo "<input type='submit' value='Agregar al carrito'>";
+        echo "</form>";        
         
     }
 } else {
@@ -34,7 +33,7 @@ $conexion->close();
 ?>
 
 <script>
-function agregarAlCarrito(event, productoId) {
+function agregarAlCarrito(event, productoId, imagen) {
     event.preventDefault(); // Evitar la acción predeterminada del formulario
 
     // Realizar una solicitud AJAX para agregar el producto al carrito
@@ -43,6 +42,13 @@ function agregarAlCarrito(event, productoId) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             // La solicitud se ha completado con éxito
             alert("Producto agregado al carrito");
+
+            // Agregar la imagen del producto al carrito
+            var carrito = document.getElementById('carrito');
+            var nuevoElemento = document.createElement('div');
+            nuevoElemento.innerHTML = "<img src='" + imagen + "' alt='Imagen del producto en el carrito' style='max-width: 50px;'>";
+
+            carrito.appendChild(nuevoElemento);
         }
     };
 

@@ -9,16 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['producto_id'])) {
         $producto_id = $_POST['producto_id'];
 
-        if (!in_array($producto_id, $_SESSION['carrito'])) {
-            $_SESSION['carrito'][] = $producto_id;
-        }
-    }
-
-    if (isset($_POST['eliminar_producto'])) {
-        $eliminar_producto_id = $_POST['eliminar_producto'];
-
-        // Buscar y eliminar el producto del carrito
-        $_SESSION['carrito'] = array_values(array_diff($_SESSION['carrito'], array($eliminar_producto_id)));
+        // Agregar el producto al carrito (realiza las operaciones necesarias según tu lógica)
+        $_SESSION['carrito'][] = $producto_id;
     }
 }
 
@@ -27,7 +19,7 @@ if (empty($_SESSION['carrito'])) {
     echo "El carrito está vacío.";
 } else {
     echo "<h2>Carrito de compras</h2>";
-    echo "<ul>";
+    echo "<div id='carrito'>";
     foreach ($_SESSION['carrito'] as $producto_id) {
         // Realizar una consulta a la base de datos para obtener la información del producto
         $conexion = new mysqli("localhost", "root", "", "agendas");
@@ -44,16 +36,24 @@ if (empty($_SESSION['carrito'])) {
 
         if ($resultado->num_rows > 0) {
             $row = $resultado->fetch_assoc();
-            echo "<li>Producto: " . htmlspecialchars($row['nombre']) . " - Precio: $" . number_format($row['precio'], 2) . " ";
+            echo "<div>";
+            echo "<img src='" . htmlspecialchars($row['imagen']) . "' alt='Imagen del producto' style='max-width: 50px;'>";
+            echo "Producto: " . htmlspecialchars($row['nombre']) . " - Precio: $" . number_format($row['precio'], 2) . " ";
             echo "<form action='carrito.php' method='post'>";
             echo "<input type='hidden' name='eliminar_producto' value='$producto_id'>";
             echo "<input type='submit' value='Eliminar'>";
-            echo "</form></li>";
+            echo "</form>";
+            echo "</div>";
         }
 
         $stmt->close();
         $conexion->close();
     }
-    echo "</ul>";
+    echo "</div>";
 }
+
+echo "<form action='proceso_de_compra.php' method='post'>";
+echo "<input type='submit' value='Realizar Pedido'>";
+echo "</form>";
+
 ?>
