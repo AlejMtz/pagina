@@ -1,693 +1,89 @@
 <!DOCTYPE html>
 <html lang="es">
-<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <title>PROCESADORES - Carrito</title>
-    <link rel="icon" href="img/icono.jpg">
+    <title>Carrito de Compras</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            text-decoration: none;
-            list-style: none;
-        }
-
+        /* Puedes agregar estilos CSS según tu preferencia */
         body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
+            font-family: Arial, sans-serif;
+            margin: 20px;
         }
-
-        .container {
-            max-width: 1200px;
+        .carrito-container {
+            max-width: 600px;
             margin: 0 auto;
         }
-
-        .header {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7),
-                    rgba(0, 0, 0, 0.7)),
-                url(https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/procesador_2.jpg?v=1706063711861);
-            background-position: center bottom;
-            background-repeat: no-repeat;
-            background-size: cover;
-            min-height: 96vh;
-            display: flex;
-            align-items: center;
-            padding: 80px 0 0 0;
-        }
-
-        .menu {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            color: white;
-            font-size: 50px;
-            font-weight: 800;
-            text-transform: uppercase;
-            position: relative;
-            animation: moveLogo 5s infinite linear;
-            text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
-        }
-
-        @keyframes moveLogo {
-            0% {
-                left: 0;
-                /* Posición inicial, sin desplazamiento lateral */
-            }
-
-            50% {
-                left: 20px;
-                /* Desplazamiento hacia la derecha en la mitad de la animación */
-            }
-
-            100% {
-                left: 0;
-                /* Posición final, sin desplazamiento lateral */
-            }
-        }
-
-        .menu .navbar ul li {
-            position: relative;
-            float: left;
-        }
-
-        .menu .navbar ul li a {
-            font-size: 30px;
-            padding: 20px;
-            color: aliceblue;
-            display: block;
-            font-weight: 600;
-        }
-
-        .menu .navbar ul li a:hover {
-            color: lightcoral;
-        }
-
-        #menu {
-            display: none;
-        }
-
-        .menu-icono {
-            width: 25px;
-        }
-
-        .menu label {
-            cursor: pointer;
-            display: none;
-        }
-
-        .header-content {
-            text-align: center;
-            position: relative;
-        }
-
-        .header-txt {
-            position: relative;
-            perspective: 2000px;
-        }
-
-        .header-txt h1 {
-            font-size: 72px;
-            font-weight: bold;
-            color: white;
-            text-transform: uppercase;
-            position: relative;
-            transform: translateZ(-20px);
-            animation: rotate 5s linear infinite;
-            text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
-            /* Borde blanco */
-        }
-
-        @keyframes rotate {
-            0% {
-                transform: rotateX(0deg) translateY(0px);
-            }
-
-            50% {
-                transform: rotateX(180deg) translateY(-10px);
-            }
-
-            100% {
-                transform: rotateX(360deg) translateY(0px);
-            }
-        }
-
-        .header-txt span {
-            font-size: 75px;
-            color: aliceblue;
-        }
-
-        .header-img {
-            width: 50%;
-            text-align: center;
-        }
-
-        .header-img img {
-            width: 450px;
-        }
-
-        .cart-content {
-            display: none;
-        }
-
-        .cart-content.active {
-            display: block;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 50px;
-        }
-
-        .cart-item img {
-            max-width: 100px;
-            height: auto;
-            border-radius: 50%;
-            margin-right: 50px;
-        }
-
-        .cart-buttons {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .cart-buttons button {
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            margin-left: 5px;
-            cursor: pointer;
-        }
-
-        .cart-total-button {
-            margin-top: 10px;
-        }
-
-
-        .cart-total-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-
-        .cart-icon {
-            font-size: 60px;
-            color: white;
-        }
-
-        .product-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            max-width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .product-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-
-        h2 {
-            text-align: center;
-            font-size: 80px;
-            margin-top: 40px;
-        }
-
-        .cart-sidebar h2 {
-            text-align: center;
-            font-size: 80px;
-            margin-bottom: 20px;
-        }
-
-        .product {
-            width: calc(30% - 20px);
+        .producto {
             border: 1px solid #ddd;
+            margin-bottom: 10px;
             padding: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            box-sizing: border-box;
         }
-
-        .product:last-child {
-            margin-right: 0;
-        }
-
-        .product img {
-            max-width: 60px;
-            height: auto;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-
-        .product h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .product p {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .add-to-cart {
-            background-color: white;
-            color: lightcoral;
-            border: 2px solid lightcoral;
-            border-radius: 10px;
-            padding: 5px 10px;
-            margin-top: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .footer {
-            padding: 50px;
-            background-color: #292933;
-        }
-
-
-        .foother-content {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .link h3 {
-            color: aliceblue;
-            font-size: 18px;
-            margin-bottom: 15px;
-        }
-
-        .link a {
-            color: aliceblue;
-            font-size: 16px;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-
-        .footer {
-            background-color: rgb(122, 122, 122);
-            padding: 40px 0;
-            text-align: center;
-            margin-top: -5cm;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-social {
-            font-size: 24px;
-            margin-right: 10px;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 18px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .contact-info h5,
-        .contact-info p {
-            margin: 0;
-            padding: 10px;
-            font-size: 18px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .col-12.mb-4 {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-        }
-
-
-        .btn-social:hover {
-            background-color: lightcoral;
-            color: #fff;
-        }
-
-        .popup-form {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .popup-form-background {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .popup-content {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            max-width: 70%;
-            margin: 0 auto;
-            border: 2px solid lightcoral;
-        }
-
-        .popup-content button[type="submit"] {
-            background-color: lightcoral;
-            color: white;
-            font-size: 18px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            margin: 20px auto; 
-            display: block; 
-        }
-
-        .close-button {
-            position: absolute;
-            top: 10px;
-            left: 18%;
-            transform: translateX(-50%);
-            font-size: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            color: lightcoral;
-            z-index: 2;
-        }
-
-        #realizar-pedido {
-            width: 100px;
-        }
-
-        .remove-icon {
-            width: 50px;
-            height: 50px;
-        }
-
-        .remove-button{
-            padding: 5px;
-        }
-
-    #cartItems {
-        text-align: center; 
-        margin-top: 20px; 
-    }
-
-    .cart-item {
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        margin-bottom: 10px; 
-    }
-
-    .carrito h1 {
-        font-size: 40px !important; 
-        text-align: center !important; 
-        color: black !important; 
-        margin-top: 1cm;
-    }
-
-        button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px;
-            padding: 15px 20px;
-            border: none;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 5px;
-        }
-
-        button img {
-            max-width: 40px;
-            max-height: 40px;
-            margin-right: 5px;
-            vertical-align: middle;
-        }
-
-        #clearCartBtn {
-            background-color: #ff6347;
-            margin-top: 1cm;
-            margin-left: 17.4cm;
-        }
-
-        #orderButton {
-            background-color: #007bff;
-            margin-top: 1cm;
-            margin-left: 17.2cm;
-        }
-
-        .navbar ul li a img {
-        max-width: 50px; 
-        max-height: 50px;
-        margin-right: 5px; 
-        vertical-align: middle; 
-    }
-    
     </style>
-
 </head>
-
 <body>
+    <div class="carrito-container">
+        <h2>Carrito de Compras</h2>
 
-    <header class="header">
-        <div class="menu container">
-            <a href="#" class="logo">PROCESADORES
-                <br>
-                DE ALIMENTOS</a>
-            <input type="checkbox" id="menu" />
-            <nav class="navbar">
-                <ul>
-                    <li>
-                        <a href="index.html">
-                            <img src="img/inicio.jpg" alt="Inicio">
-                            Inicio
-                        </a>
-                    </li>
-                    <li>
-                        <a href="menu.html">
-                            <img src="img/productos.jpg" alt="Productos">
-                            Productos
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="header-content container">
-            <div class="header-txt">
-                <h1>CARRITO</h1>
-            </div>
-        </div>
-    </header>
+        <div id="carrito-contenido"></div> <!-- Aquí se mostrarán los productos del carrito -->
 
-    <div class="carrito">
-    <h1>Carrito de compras</h1>
+        <a href="#" onclick="vaciarCarrito()">Vaciar Carrito</a>
     </div>
-    <div id="cartItems">
-        <!-- Aquí se mostrarán los elementos del carrito -->
-    </div>
-    <button id="clearCartBtn">
-        <img src="img/eliminar.jpg" alt="Vaciar carrito">
-        Vaciar carrito
-    </button>
-    
-    <button id="orderButton">
-        <img src="img/comprar.jpg" alt="Realizar pedido">
-        Realizar pedido
-    </button>
-    
 
     <script>
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-        const cartItemsContainer = document.getElementById('cartItems');
-        const clearCartBtn = document.getElementById('clearCartBtn');
-        const orderButton = document.getElementById('orderButton');
-    
-        function updateCart() {
-            cartItemsContainer.innerHTML = '';
-    
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p>El carrito está vacío.</p>';
-            } else {
-                cart.forEach(product => {
-                    const cartItem = document.createElement('div');
-                    cartItem.classList.add('cart-item');
-                    cartItem.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}">
-                        <p>${product.name} - ${product.quantity} unidades</p>
-                    `;
-                    cartItemsContainer.appendChild(cartItem);
-                });
-            }
+        // Recupera el carrito del almacenamiento local
+        var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+        // Muestra los productos en el carrito
+        var carritoContenido = document.getElementById('carrito-contenido');
+        if (carrito.length > 0) {
+            carrito.forEach(function (producto) {
+                var productoHtml = '<div class="producto">';
+                productoHtml += '<p><strong>' + producto.nombre + '</strong></p>';
+                productoHtml += '<p>Precio: $' + producto.precio.toFixed(2) + '</p>';
+                productoHtml += '<p>Cantidad: ' + producto.cantidad + '</p>';
+                productoHtml += '</div>';
+                carritoContenido.innerHTML += productoHtml;
+            });
+        } else {
+            carritoContenido.innerHTML = '<p>El carrito está vacío.</p>';
         }
-    
-        updateCart();
-    
-        clearCartBtn.addEventListener('click', function () {
-            localStorage.removeItem('cart');
-            cart.length = 0;
-            updateCart();
-            alert('Carrito vaciado.');
-        });
-    
-        orderButton.addEventListener('click', () => {
-            const cliente = {
-                // Obtener los datos del comprador
-                nombre: document.getElementById('nombre').value,
-                apellidos: document.getElementById('apellidos').value,
-                telefono: document.getElementById('telefono').value,
-                email: document.getElementById('email').value,
-            };
-    
-            fetch('guardar_pedido.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ cliente, productos: cart }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    alert('Pedido realizado. Total: $' + data.total);
-    
-                    cart.length = 0;
-                    localStorage.removeItem('cart');
-                    updateCart();
-    
-                    // Abrir el PDF en una nueva ventana
-                    window.open(data.pdf_url, '_blank');
-                })
-                .catch(error => {
-                    console.error('Error al procesar el pedido:', error);
-                });
-        });
     </script>
-    
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
-                <div id="popup-form" class="popup-form">
-                    <div class="popup-content">
-                        <span id="close-button" class="close-button">X</span> 
-                        <h3>Ingrese sus datos de comprador</h3>
-                        <form>
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" id="nombre" name="nombre" required>
-                            <br>
-                            <label for="apellidos">Apellidos:</label>
-                            <input type="text" id="apellidos" name="apellidos" required>
-                            <br>
-                            <label for="telefono">Teléfono:</label>
-                            <input type="text" id="telefono" name="telefono" required>
-                            <br>
-                            <label for="email">Direccion:</label>
-                            <input type="text" id="email" name="email" required>
-                            <br>
-                            <button type="submit" id="submitButton">
-                                <img src="img/enviar.jpg" alt="Texto alternativo de la imagen">
-                                Enviar
-                            </button>
-                        </form>
-                    </div>
-                </div>
+<script>
+    // Función para vaciar el carrito
+    function vaciarCarrito() {
+        // Elimina el carrito del almacenamiento local
+        localStorage.removeItem('carrito');
 
-                <script>
-                    // Función para abrir el formulario
-                    function openForm() {
-                        const popupForm = document.getElementById("popup-form");
-                        popupForm.style.display = "block";
-                    }
+        // Actualiza la visualización del carrito en la página
+        actualizarCarritoEnPagina();
+    }
 
-                    // Función para cerrar el formulario
-                    function closeForm() {
-                        const popupForm = document.getElementById("popup-form");
-                        popupForm.style.display = "none";
-                    }
+    // Función para actualizar la visualización del carrito en la página
+    function actualizarCarritoEnPagina() {
+        var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        var carritoContenido = document.getElementById('carrito-contenido');
 
-                    // Agrega evento de clic al botón "Cerrar"
-                    document.getElementById("close-button").addEventListener("click", closeForm);
+        if (carrito.length > 0) {
+            // Si hay productos en el carrito, mostrarlos
+            carritoContenido.innerHTML = '';
+            carrito.forEach(function (producto) {
+                var productoHtml = '<div class="producto">';
+                productoHtml += '<p><strong>' + producto.nombre + '</strong></p>';
+                productoHtml += '<p>Precio: $' + producto.precio.toFixed(2) + '</p>';
+                productoHtml += '<p>Cantidad: ' + producto.cantidad + '</p>';
+                productoHtml += '</div>';
+                carritoContenido.innerHTML += productoHtml;
+            });
+        } else {
+            // Si el carrito está vacío, mostrar un mensaje
+            carritoContenido.innerHTML = '<p>El carrito está vacío.</p>';
+        }
+    }
 
-                    // Mostrar el formulario al cargar la página
-                    document.addEventListener("DOMContentLoaded", openForm);
-
-                    document.querySelector("form").addEventListener("submit", function (event) {
-                        event.preventDefault();
-
-                        // Envía los datos del formulario
-                        fetch('guardar_comprador.php', {
-                            method: 'POST',
-                            body: new FormData(this),
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                alert('Los datos se han enviado correctamente.');
-                                closeForm();
-                            })
-                            .catch(error => {
-                                console.error('Error al guardar los datos del comprador:', error);
-                            });
-                    });
-                </script>
-
+    // Al cargar la página, actualiza la visualización del carrito
+    actualizarCarritoEnPagina();
+</script>
 </body>
-
 </html>

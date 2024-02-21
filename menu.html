@@ -369,11 +369,12 @@
                 </div>
                 <img 
                     src="../pagina/img/procesador-red.jpg">
-                <div>
-                    <button onclick="addToCart(0)">
-                        <img src="img/carrito.jpg" alt="PROCESADORA DE ALIMENTOS">
-                    </button>
-                </div> 
+                    <div class="cart-actions">
+                        <form onsubmit="agregarAlCarrito(event)">
+                            <input type="hidden" name="producto_id" value="1">
+                            <button type="submit">Agregar al carrito</button>
+                        </form>
+                    </div>
             </div>
 
             <div class="general-txt">
@@ -718,127 +719,70 @@
 
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
-                <script>
-                    function addToCart(productIndex) {
-                        const products = [
-                            { name: 'PROCESADORA DE ALIMENTOS', price: 1500.00, quantity: 1, image: 'img/procesador.jpg' },
-                            { name: 'CORTADORA PROFESIONAL DE VERDURAS', price: 8000.00, quantity: 1, image: 'img/cortadora_v.jpg' },
-                            { name: 'LICUADORA PROFESIONAL', price: 3000.00, quantity: 1, image: 'img/licuadora.jpg' },
-                            { name: 'CORTADORA DE CARNES Y QUESOS', price: 6000.00, quantity: 1, image: 'img/cortadora_c.jpg' },
-                            { name: 'BATIDORA PROFESIONAL', price: 1200.00, quantity: 1, image: 'img/batidora.jpg' },
-                            { name: 'MOLINO PROFESIONAL DE CARNE', price: 5700.00, quantity: 1, image: 'img/molino.jpg' },
-                            { name: 'CORTADORA DE FRUTAS', price: 3000.00, quantity: 1, image: 'img/cortadora_f.jpg' },
-                            { name: 'EXTRACTOR AUTOMATICO DE ACEITE', price: 9100.00, quantity: 1, image: 'img/aceite.jpg' },
-                            { name: 'PICADORA DE CARNE ELECTRICA', price: 1000.00, quantity: 1, image: 'img/picadora.jpg' },
-                            { name: 'MOLINILLO DE GRANO ELECTRICO', price: 3300.00, quantity: 1, image: 'img/molinillo.jpg' },
-                        ];
-                
-                        // Obtiene el producto actual
-                        const product = products[productIndex];
-                
-                        // Verifica si el carrito ya existe en localStorage
-                        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                
-                        // Busca si el producto ya está en el carrito
-                        const existingProductIndex = cart.findIndex(item => item.name === product.name);
-                
-                        if (existingProductIndex !== -1) {
-                            // Si el producto ya está en el carrito, incrementa la cantidad
-                            cart[existingProductIndex].quantity++;
-                        } else {
-                            // Si el producto no está en el carrito, agrégalo
-                            cart.push(product);
-                        }
-                
-                        // Actualiza el carrito en localStorage
-                        localStorage.setItem('cart', JSON.stringify(cart));
-                
-                        // Aviso de que se ha agregado un producto al carrito
-                        alert('Producto agregado al carrito: ' + product.name);
-                    }
-                </script>     
+<!-- ... (código previo) ... -->
 
 <script>
-    // Función para mostrar la lista de productos en el menú
-    function displayMenuProducts() {
-        // Obtener la lista actual de productos del localStorage
-        const menuProducts = JSON.parse(localStorage.getItem('products')) || [];
-        // Obtener la referencia a la lista en la página del menú
-        const productList = document.getElementById('productList');
+   function agregarAlCarrito(event) {
+    // Evitar el envío del formulario y la recarga de la página
+    event.preventDefault();
 
-        // Limpiar la lista actual
-        productList.innerHTML = '';
+    var formulario = event.target;
+    var producto = formulario.parentElement.parentElement; // Ajusta según la estructura del DOM
+    var productoId = formulario.querySelector('[name="producto_id"]').value;
+    var productoNombre = producto.querySelector('h3').innerText;
+    var productoPrecio = parseFloat(producto.querySelector('.prices span').innerText.replace('$', ''));
 
-        // Recorrer la lista de productos y agregar elementos a la lista en la página
-        menuProducts.forEach(product => {
-            const listItem = createProductListItem(product);
-            // Agregar el elemento de la lista a la lista en la página
-            productList.appendChild(listItem);
-        });
+        // Recupera el carrito del almacenamiento local (puede usar sessionStorage también)
+        var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+        // Verifica si el producto ya está en el carrito
+        var productoExistente = carrito.find(item => item.id == productoId);
+        if (productoExistente) {
+            // Si el producto ya está en el carrito, puedes actualizar la cantidad o hacer otras acciones
+            alert('Este producto ya está en el carrito.');
+        } else {
+            // Agrega el nuevo producto al carrito
+            var nuevoProducto = {
+                id: productoId,
+                nombre: productoNombre,
+                precio: productoPrecio,
+                cantidad: 1
+            };
+            carrito.push(nuevoProducto);
+
+            // Actualiza el carrito en el almacenamiento local
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+
+            // Actualiza la visualización del carrito en la página
+            actualizarCarritoEnPagina();
+
+            // Puedes mostrar un mensaje o realizar otras acciones
+            alert('Producto agregado al carrito.');
+        }
     }
 
-    // Llamar a la función al cargar la página para mostrar los productos existentes
-    displayMenuProducts();
+    function actualizarCarritoEnPagina() {
+        var carritoContainer = document.getElementById('carrito-container');
+        carritoContainer.innerHTML = ''; // Limpiar contenido actual
 
-    // Evento para actualizar la lista cuando se agregue un nuevo producto
-    document.addEventListener('productAddedToMenu', function (event) {
-        const product = event.detail;
-        // Agrega el nuevo producto al listado en la página de menú
-        const productList = document.getElementById('productList');
-        const listItem = createProductListItem(product);
-        // Agregar el elemento de la lista a la lista en la página
-        productList.appendChild(listItem);
-    });
+        // Recupera el carrito del almacenamiento local
+        var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-    // Función para crear un elemento de lista para un producto con estilos específicos
-    function createProductListItem(product) {
-        const listItem = document.createElement('li');
-        listItem.className = 'general-txt'; // Agregar la clase 'general-txt' para el estilo deseado
-        listItem.style.textAlign = 'center'; // Alinear al centro
-        listItem.style.borderRadius = '25px'; // Borde redondeado
-        listItem.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.2)'; // Sombra
-        listItem.style.flex = '0 0 calc(110% - 1px)'; // Tamaño flexible
-        listItem.style.maxWidth = 'calc(110% - 1px)'; // Ancho máximo
-        listItem.style.marginBottom = '35px'; // Margen inferior
-        listItem.style.paddingBottom = '35px'; // Relleno inferior
-        listItem.style.transition = 'transform 0.3s'; // Transición al hacer hover
-        listItem.style.overflow = 'hidden'; // Evitar desbordamiento de contenido
-        listItem.style.maxHeight = '600px'; // Altura máxima del contenedor
-        listItem.style.maxWidth = '300px'; // Anchura máxima del contenedor
-
-        // Agregar el nombre y descripción del producto al elemento de la lista
-        listItem.innerHTML += `
-            <div class="product-info">
-                <h2 class="product-name" style="font-size: 30px; color: #292933; margin-bottom: 20px;">${product.name}</h2>
-                <p class="product-description" style="color: black; font-size: 16px;">${product.description}</p>
-                <span class="product-price" style="font-size: 18px;">$${product.price.toFixed(2)}</span>
-            </div>
-        `;
-
-        // Crear una imagen y establecer su atributo src
-        const productImage = document.createElement('img');
-        productImage.src = product.image;
-        productImage.alt = product.name;
-        productImage.style.width = '50%'; // Establecer el ancho al 100%
-
-        // Agregar la imagen al elemento de la lista
-        listItem.appendChild(productImage);
-
-        // Añadir evento de hover para transformación y cambio de estilo
-        listItem.addEventListener('mouseover', () => {
-            listItem.style.transform = 'scale(1.1)'; // Escalar al hacer hover
-            listItem.style.border = '2px solid lightcoral'; // Agregar borde al hacer hover
-        });
-
-        listItem.addEventListener('mouseout', () => {
-            listItem.style.transform = 'scale(1)'; // Restaurar escala al salir del hover
-            listItem.style.border = 'none'; // Restaurar borde al salir del hover
-        });
-
-        return listItem;
+        // Muestra los productos en el carrito
+        if (carrito.length > 0) {
+            carrito.forEach(function (producto) {
+                var productoHtml = '<div class="producto">';
+                productoHtml += '<p><strong>' + producto.nombre + '</strong></p>';
+                productoHtml += '<p>Precio: $' + producto.precio.toFixed(2) + '</p>';
+                productoHtml += '<p>Cantidad: ' + producto.cantidad + '</p>';
+                productoHtml += '</div>';
+                carritoContainer.innerHTML += productoHtml;
+            });
+        } else {
+            carritoContainer.innerHTML = '<p>El carrito está vacío.</p>';
+        }
     }
 </script>
-
 
 
 </body>
