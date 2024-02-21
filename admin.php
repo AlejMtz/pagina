@@ -33,7 +33,14 @@
     <button type="submit">Agregar Producto</button>
 </form>
 
-<!-- Agregamos un elemento para mostrar el mensaje -->
+
+<!-- Agregamos botones para modificar y eliminar -->
+<div id="botonesModificarEliminar" style="margin-top: 20px;">
+    <button type="button" onclick="modificarProducto()">Modificar Producto</button>
+    <button type="button" onclick="eliminarProducto()">Eliminar Producto</button>
+</div>
+
+
 <!-- Agregamos un elemento para mostrar el mensaje -->
 <div id="mensaje" style="display: none; background-color: #4CAF50; color: white; padding: 10px; text-align: center;">
     <?php
