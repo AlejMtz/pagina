@@ -11,6 +11,7 @@ if ($conexion->connect_error) {
 $nombre = $_POST['nombre'];
 $descripcion = $_POST['descripcion'];
 $precio = $_POST['precio'];
+$stock = $_POST['stock'];
 
 // Guardar la imagen en una carpeta (ajusta la ruta según tu estructura de archivos)
 $imagen_path = "img/" . basename($_FILES["imagen"]["name"]);
@@ -33,8 +34,8 @@ if (!file_exists("modelos3d")) {
 move_uploaded_file($_FILES["modelo3d"]["tmp_name"], $modelo3d_path);
 
 // Insertar datos en la base de datos
-$query = "INSERT INTO productos (nombre, descripcion, precio, imagen, modelo3d) 
-          VALUES ('$nombre', '$descripcion', $precio, '$imagen_path', '$modelo3d_path')";
+$query = "INSERT INTO productos (nombre, descripcion, precio, stock, imagen, modelo3d) 
+          VALUES ('$nombre', '$descripcion', $precio, $stock, '$imagen_path', '$modelo3d_path')";
 
 if ($conexion->query($query) === TRUE) {
     echo "Producto agregado con éxito.";
