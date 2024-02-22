@@ -17,6 +17,7 @@ $resultado = $conexion->query($query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -335,6 +336,52 @@ $resultado = $conexion->query($query);
     ?>
 
     <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Obtener todos los elementos <model-viewer>
+    var modelViewers = document.querySelectorAll('model-viewer');
+
+    // Iterar sobre cada <model-viewer> y establecer la rotación automática después de cargarse completamente
+    modelViewers.forEach(function (modelViewer) {
+        modelViewer.addEventListener('load', function () {
+            // Definir la velocidad de rotación en grados por segundo (ajústalo según tus necesidades)
+            var velocidadRotacion = 10;
+
+            // Obtener el tiempo total de animación en segundos
+            var duracionAnimacion = modelViewer.duration || 2; // 2 segundos por defecto si no se proporciona la duración
+
+            // Calcular el ángulo total de rotación necesario para completar la animación
+            var anguloTotalRotacion = 360;
+
+            // Calcular el número total de fotogramas en la animación
+            var numeroTotalFotogramas = duracionAnimacion * 60; // 60 fotogramas por segundo
+
+            // Calcular el ángulo de rotación por fotograma
+            var anguloPorFotograma = anguloTotalRotacion / numeroTotalFotogramas;
+
+            // Iniciar la rotación automática después de que el modelo se haya cargado
+            var fotogramaActual = 0;
+            var rotacionInicial = modelViewer.rotation;
+
+            var intervaloRotacion = setInterval(function () {
+                // Calcular el nuevo ángulo de rotación para este fotograma
+                var nuevaRotacion = rotacionInicial + anguloPorFotograma * fotogramaActual;
+
+                // Aplicar la nueva rotación al modelo
+                modelViewer.rotation = nuevaRotacion;
+
+                // Incrementar el número de fotogramas actual
+                fotogramaActual++;
+
+                // Detener la rotación después de completar la animación
+                if (fotogramaActual >= numeroTotalFotogramas) {
+                    clearInterval(intervaloRotacion);
+                }
+            }, 1000 / 60); // Intervalo de tiempo en milisegundos (aproximadamente 60 fotogramas por segundo)
+        });
+    });
+});
+
         function agregarAlCarrito(event, productoId, imagen, stock) {
             event.preventDefault(); // Evitar la acción predeterminada del formulario
 

@@ -1,3 +1,5 @@
+
+
 <?php
 // Conectar a la base de datos (debes completar con tus propias credenciales)
 $conexion = new mysqli("localhost", "root", "", "agendas");

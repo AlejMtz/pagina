@@ -8,6 +8,7 @@ $con = mysqli_connect("localhost", "root", "", "agendas") or die ("Error");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Producto</title>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </head>
 <body>
 
@@ -31,9 +32,18 @@ $con = mysqli_connect("localhost", "root", "", "agendas") or die ("Error");
     <img id="imagenPreview" alt="Imagen previa" style="max-width: 200px; display: none;"><br>
 
     <label for="modelo3d">Modelo 3D (.glb):</label>
-    <input type="file" id="modelo3d" name="modelo3d" accept=".glb" onchange="previewModel()"><br>
-    <model-viewer id="modelo3dPreview" style="width: 200px; height: 200px;"></model-viewer><br>
-
+<input type="file" id="modelo3d" name="modelo3d" accept=".glb" onchange="previewModel()"><br>
+<model-viewer id="modelo"
+              alt="Modelo 3D"
+              shadow-intensity="2"
+              camera-controls
+              auto-rotate
+              ar
+              ar-modes="scene-viewer quick-look"
+              src=""
+              ios-src=""
+              poster=""
+></model-viewer>
     <button type="submit">Agregar Producto</button>
 </form>
 
@@ -163,45 +173,25 @@ $con = mysqli_connect("localhost", "root", "", "agendas") or die ("Error");
         }
     }
 
-function previewModel() {
-  var input = document.getElementById('modelo3d');
-  var preview = document.getElementById('modelo3dPreview');
+    function previewModel() {
+        var input = document.getElementById('modelo3d');
+        var viewer = document.getElementById('modelo');
 
-  if (input.files && input.files[0]) {
-    var modelUrl = URL.createObjectURL(input.files[0]);
-    console.log(modelUrl);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-    createBlobFromURL(modelUrl).then((blob) => {
-      preview.setAttribute('src', blob);
-      preview.style.display = 'block';
-    });
-  }
-}
+            reader.onload = function (e) {
+                // Establecer el atributo src del modelo 3D
+                viewer.src = e.target.result;
+            }
 
-function createBlobFromURL(url) {
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'arraybuffer';
-
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        const arrayBuffer = xhr.response;
-        const blob = new Blob([arrayBuffer], { type: 'model/gltf-binary' });
-        resolve(blob);
-      } else {
-        reject(new Error('Error al cargar el archivo'));
-      }
-    };
-
-    xhr.send();
-  });
-}
-
-
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
 
 </script>
+
 
 </body>
 </html>
