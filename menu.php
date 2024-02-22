@@ -316,7 +316,7 @@ if ($resultado->num_rows > 0) {
         echo "<img src='" . $row['imagen'] . "' alt='Imagen del producto' style='max-width: 200px;'><br>";
 
         // Modelo 3D
-        echo "<model-viewer src='" . $row['modelo3d'] . "' style='width: 200px; height: 200px;' camera-controls auto-rotate></model-viewer><br>";
+        echo "<model-viewer src='" . $row['modelo3d'] . "' style='width: 200px; height: 200px; margin-left:20%;' camera-controls auto-rotate></model-viewer><br>";
 
         // Agregar botón "Agregar al carrito"
         echo "<form onsubmit='agregarAlCarrito(event, " . $row['id'] . ", \"" . $row['imagen'] . "\", " . $row['stock'] . ")'>";
