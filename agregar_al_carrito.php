@@ -7,16 +7,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         
         if (verificarStockDisponible($producto_id)) {
-            
-            $_SESSION['carrito'][] = $producto_id;
-
-            
+            $carrito = isset($_SESSION['carrito']) ? $_SESSION['carrito'] : array();
+        
+            // Verificar si el producto ya está en el carrito
+            $encontrado = false;
+            foreach ($carrito as &$item) {
+                if ($item['id'] == $producto_id) {
+                    $item['cantidad'] += 1; // Incrementar la cantidad si ya está en el carrito
+                    $encontrado = true;
+                    break;
+                }
+            }
+        
+            if (!$encontrado) {
+                // Agregar el producto al carrito con cantidad 1
+                $carrito[] = array('id' => $producto_id, 'cantidad' => 1);
+            }
+        
+            $_SESSION['carrito'] = $carrito;
+        
             actualizarStock($producto_id);
-            
+        
             echo "Producto agregado al carrito";
         } else {
             echo "No hay suficiente stock disponible.";
         }
+        
     }
 }
 

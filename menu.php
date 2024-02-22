@@ -310,7 +310,7 @@ if ($resultado->num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
         echo "<div class='general-txt'>";
         echo "<h3>" . $row['nombre'] . "</h3>";
-        echo "<p>Descripción: " . $row['descripcion'] . "</p>";
+        echo "<p> " . $row['descripcion'] . "</p>";
         echo "<p>Precio: $" . $row['precio'] . "</p>";
         echo "<p>Stock:" . $row['stock'] . "</p>";
         echo "<img src='" . $row['imagen'] . "' alt='Imagen del producto' style='max-width: 200px;'><br>";

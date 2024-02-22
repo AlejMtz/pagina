@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $producto_id = $_POST['producto_id'];
 
         // Agregar el producto al carrito (realiza las operaciones necesarias según tu lógica)
-        $_SESSION['carrito'][] = $producto_id;
+        agregarAlCarrito($producto_id);
     }
 
     // Verificar si se ha enviado el formulario para eliminar un producto
@@ -18,19 +18,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $eliminar_producto_id = $_POST['eliminar_producto'];
 
         // Buscar la posición del producto en el carrito y eliminarlo
-        $key = array_search($eliminar_producto_id, $_SESSION['carrito']);
-        if ($key !== false) {
+        eliminarDelCarrito($eliminar_producto_id);
+    }
+}
+
+function agregarAlCarrito($producto_id) {
+    // Puedes agregar lógica adicional aquí, por ejemplo, verificar el stock antes de agregar al carrito
+    $_SESSION['carrito'][] = array('id' => $producto_id, 'cantidad' => 1);
+}
+
+function eliminarDelCarrito($producto_id) {
+    // Buscar la posición del producto en el carrito
+    $key = array_search($producto_id, array_column($_SESSION['carrito'], 'id'));
+    if ($key !== false) {
+        // Reducir la cantidad del producto en el carrito
+        $_SESSION['carrito'][$key]['cantidad']--;
+
+        // Eliminar el producto del carrito si la cantidad es 0 o menos
+        if ($_SESSION['carrito'][$key]['cantidad'] <= 0) {
             unset($_SESSION['carrito'][$key]);
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 
@@ -85,15 +102,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .logo {
-    color: white;
-    font-size: 60px;
-    font-weight: 800;
-    text-transform: uppercase;
-    position: relative;
-    animation: moveLogo 5s infinite linear;
-    text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
-    text-decoration: none; /* Evitar subrayado en el título */
-}
+            color: white;
+            font-size: 60px;
+            font-weight: 800;
+            text-transform: uppercase;
+            position: relative;
+            animation: moveLogo 5s infinite linear;
+            text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
+            text-decoration: none;
+            /* Evitar subrayado en el título */
+        }
 
         @keyframes moveLogo {
             0% {
@@ -118,21 +136,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .menu .navbar ul li a {
-    font-size: 30px;
-    padding: 20px;
-    color: aliceblue;
-    display: block;
-    font-weight: 600;
-    text-decoration: none; /* Evitar subrayado en los elementos del menú */
-}
+            font-size: 30px;
+            padding: 20px;
+            color: aliceblue;
+            display: block;
+            font-weight: 600;
+            text-decoration: none;
+            /* Evitar subrayado en los elementos del menú */
+        }
 
         .menu .navbar ul li a:hover {
             color: lightcoral;
         }
 
         .menu .navbar ul {
-    list-style: none; /* Quitar los puntos de la lista del menú */
-}
+            list-style: none;
+            /* Quitar los puntos de la lista del menú */
+        }
 
         #menu {
             display: none;
@@ -204,13 +224,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .navbar ul li a img {
-        max-width: 50px; 
-        max-height: 50px;
-        margin-right: 5px; 
-        vertical-align: middle; 
-    }
+            max-width: 50px;
+            max-height: 50px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
 
-    #carrito-container {
+        #carrito-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
@@ -242,34 +262,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             color: #333;
         }
 
-    #form-realizar-pedido {
-        text-align: center;
-        margin-top: 1cm; /* 1cm hacia abajo */
-    }
+        #form-realizar-pedido {
+            text-align: center;
+            margin-top: 1cm;
+            /* 1cm hacia abajo */
+        }
 
-    #form-realizar-pedido input[type="image"] {
-        text-align: center;
-        width: 50px; /* Ajusta el ancho según tus necesidades */
-        height: auto; /* Esto mantendrá la proporción original de la imagen */
-        max-height: 150px; /* Ajusta la altura máxima según tus necesidades */
-        margin-top: 1cm; /* 1cm hacia abajo */
-    }
+        #form-realizar-pedido input[type="image"] {
+            text-align: center;
+            width: 50px;
+            /* Ajusta el ancho según tus necesidades */
+            height: auto;
+            /* Esto mantendrá la proporción original de la imagen */
+            max-height: 150px;
+            /* Ajusta la altura máxima según tus necesidades */
+            margin-top: 1cm;
+            /* 1cm hacia abajo */
+        }
 
-
-
-    
-</style>
-
-</style>
+    </style>
 </head>
 
 <body>
 
-<header class="header">
+    <header class="header">
         <div class="menu container">
-            <a href="#" class="logo">PROCESADORES DE 
-                <br>
-               ALIMENTOS</a>
+            <a href="#" class="logo">PROCESADORES DE <br> ALIMENTOS</a>
             <input type="checkbox" id="menu" />
             <nav class="navbar">
                 <ul>
@@ -296,52 +314,65 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </header>
 
     <?php
-// Mostrar el carrito
-if (empty($_SESSION['carrito'])) {
-    echo "El carrito está vacío.";
-} else {
-    echo "<h2 style='text-align: center; font-size: 36px;'>Carrito de compras</h2>";
-    echo "<div id='carrito-container' class='container'>"; // Agrega un contenedor
-    // Realizar una sola consulta a la base de datos para obtener la información de todos los productos
-    $conexion = new mysqli("localhost", "root", "", "agendas");
+    // Mostrar el carrito
+    if (empty($_SESSION['carrito'])) {
+        echo "El carrito está vacío.";
+    } else {
+        echo "<h2 style='text-align: center; font-size: 36px;'>Carrito de compras</h2>";
+        echo "<div id='carrito-container' class='container'>"; // Agrega un contenedor
+        // Realizar una sola consulta a la base de datos para obtener la información de todos los productos
+        $conexion = new mysqli("localhost", "root", "", "agendas");
 
-    if ($conexion->connect_error) {
-        die("Error en la conexión a la base de datos: " . $conexion->connect_error);
+        if ($conexion->connect_error) {
+            die("Error en la conexión a la base de datos: " . $conexion->connect_error);
+        }
+
+        $productos_ids = array_column($_SESSION['carrito'], 'id');
+        $query = "SELECT * FROM productos WHERE id IN (" . implode(',', $productos_ids) . ")";
+        $resultado = $conexion->query($query);
+
+        foreach ($resultado as $row) {
+            $producto_id = $row['id'];
+
+            // Buscar la cantidad de este producto en el carrito
+            $cantidad = 0;
+            foreach ($_SESSION['carrito'] as $item) {
+                if ($item['id'] == $producto_id) {
+                    $cantidad = $item['cantidad'];
+                    break;
+                }
+            }
+
+            echo "<div class='menu-pl-item'>";
+            echo "<h3>" . $row['nombre'] . "</h3>";
+            echo "<p>Descripción: " . $row['descripcion'] . "</p>";
+            echo "<div class='prices'>";
+            echo "<span>$" . number_format($row['precio'] * $cantidad, 2) . "</span>";
+            echo "</div>";
+            echo "<p>Cantidad: " . $cantidad . "</p>";
+            echo "<img src='" . htmlspecialchars($row['imagen']) . "' alt='Imagen del producto' style='max-width: 200px;'><br>";
+            echo "<model-viewer src='" . htmlspecialchars($row['modelo3d']) . "' style='width: 200px; height: 200px;'></model-viewer><br>";
+
+            // Agregar formulario con botón de eliminar como imagen
+            echo "<form action='carrito.php' method='post' style='margin-top: -0.5cm;'>";
+            echo "<input type='hidden' name='eliminar_producto' value='" . $producto_id . "'>";
+            echo "<button type='submit' style='background: none; border: none; cursor: pointer; width: 40px; height: 40px;'>";
+            echo "<img src='img/eliminar.jpg' alt='Eliminar producto' style='max-width: 110%; max-height: 110%;'>";
+            echo "</button>";
+            echo "</form>";
+
+            echo "</div>"; // Cerrar el div del producto
+        }
+
+        $conexion->close();
+        echo "</div>"; // Cerrar el contenedor
     }
 
-    $query = "SELECT * FROM productos WHERE id IN (" . implode(',', $_SESSION['carrito']) . ")";
-    $resultado = $conexion->query($query);
-
-    while ($row = $resultado->fetch_assoc()) {
-        echo "<div class='menu-pl-item'>";
-        echo "<h3>" . $row['nombre'] . "</h3>";
-        echo "<p>Descripción: " . $row['descripcion'] . "</p>";
-        echo "<div class='prices'>";
-        echo "<span>$" . number_format($row['precio'], 2) . "</span>";
-        echo "</div>";
-        echo "<img src='" . htmlspecialchars($row['imagen']) . "' alt='Imagen del producto' style='max-width: 200px;'><br>";
-        echo "<model-viewer src='" . htmlspecialchars($row['modelo3d']) . "' style='width: 200px; height: 200px;'></model-viewer><br>";
-    
-       // Agregar formulario con botón de eliminar como imagen
-        echo "<form action='carrito.php' method='post' style='margin-top: -0.5cm;'>";
-        echo "<input type='hidden' name='eliminar_producto' value='" . $row['id'] . "'>";
-        echo "<button type='submit' style='background: none; border: none; cursor: pointer; width: 40px; height: 40px;'>";
-        echo "<img src='img/eliminar.jpg' alt='Eliminar producto' style='max-width: 110%; max-height: 110%;'>";
-        echo "</button>";
-        echo "</form>";
-
-
-        echo "</div>"; // Cerrar el div del producto
-    }
-
-    $conexion->close();
-    echo "</div>"; // Cerrar el contenedor
-}
-
-echo "<form action='proceso_de_compra.php' method='post' id='form-realizar-pedido'>";
+    echo "<form action='proceso_de_compra.php' method='post' id='form-realizar-pedido'>";
     echo "<input type='image' src='img/comprar.jpg' alt='Realizar Pedido' style='max-width: 120px; max-height: 40px;'>";
     echo "</form>";
-?>
+    ?>
 
 </body>
+
 </html>

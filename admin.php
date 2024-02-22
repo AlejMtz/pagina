@@ -87,7 +87,7 @@ $con = mysqli_connect("localhost", "root", "", "agendas") or die ("Error");
         transition: background-color 0.3s ease;
         position: relative;
         z-index: 1;
-        margin-left: 3%; /* Ajusta el margen izquierdo según tus necesidades */
+        margin-left: 2%; /* Ajusta el margen izquierdo según tus necesidades */
     }
 
     form label {
@@ -139,22 +139,15 @@ $con = mysqli_connect("localhost", "root", "", "agendas") or die ("Error");
 
     .table-responsive table th,
     .table-responsive table td {
-    font-size: 14px; /* Ajusta el tamaño del texto según tus necesidades */
+    font-size: 12px; /* Ajusta el tamaño del texto según tus necesidades */
     }
-
-    .table-container {
-    width: 60%;
-    margin-top: 1cm;
-    display: inline-block;
-    vertical-align: top;
-}
 
 .table-responsive {
     overflow-x: auto;
     background-color: lightgrey; /* Cambiado a gris claro */
     padding: 15px;
     border-radius: 15px;
-    margin-left: 35%;
+    margin-left: 34%;
     margin-top: -20.7cm;
 }
 
@@ -165,7 +158,7 @@ table {
 }
 
 th, td {
-    padding: 10px;
+    padding: 4px;
     text-align: center;
     border: 1px solid black;
 }
