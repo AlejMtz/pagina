@@ -322,13 +322,14 @@ if (empty($_SESSION['carrito'])) {
         echo "<img src='" . htmlspecialchars($row['imagen']) . "' alt='Imagen del producto' style='max-width: 200px;'><br>";
         echo "<model-viewer src='" . htmlspecialchars($row['modelo3d']) . "' style='width: 200px; height: 200px;'></model-viewer><br>";
     
-        // Agregar formulario con botón de eliminar como imagen
-        echo "<form action='carrito.php' method='post style='margin-top: -0.5cm;'>";
+       // Agregar formulario con botón de eliminar como imagen
+        echo "<form action='carrito.php' method='post' style='margin-top: -0.5cm;'>";
         echo "<input type='hidden' name='eliminar_producto' value='" . $row['id'] . "'>";
         echo "<button type='submit' style='background: none; border: none; cursor: pointer; width: 40px; height: 40px;'>";
         echo "<img src='img/eliminar.jpg' alt='Eliminar producto' style='max-width: 110%; max-height: 110%;'>";
         echo "</button>";
         echo "</form>";
+
 
         echo "</div>"; // Cerrar el div del producto
     }
