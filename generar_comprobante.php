@@ -49,14 +49,18 @@ if ($result_cliente->num_rows > 0 && $result_detalles_compra->num_rows > 0) {
     $pdf->Cell(80, 10, 'CCV:', 0);
     $pdf->Cell(0, 10, $detalles_compra['ccv'], 0, 1);
 
-   // Guardar el PDF en el servidor
-$pdf_path = __DIR__ . "/comprobante.pdf"; // Ruta absoluta al directorio actual
-$pdf->Output($pdf_path, 'F');
+    // Guardar el PDF en el servidor
+    $pdf_path = __DIR__ . "/comprobante.pdf"; // Ruta absoluta al directorio actual
+    $pdf->Output($pdf_path, 'F');
 
+    // Cerrar el objeto TCPDF
+    $pdf->close();
 
-    // Redirigir a la página de descarga del comprobante
+    // Al finalizar la generación del PDF, redirigir a la página de descarga
     header('Location: descargar_comprobante.php?pdf=' . urlencode($pdf_path));
     exit;
+} else {
+    echo "Error: No se obtuvieron datos del cliente o detalles de la compra.";
 }
 
 // Cerrar la conexión a la base de datos

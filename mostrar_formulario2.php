@@ -40,7 +40,7 @@ echo '<html>
       border: 0 none;
       border-radius: 3px;
       box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-      padding: 10px 15px;
+      padding: 20px 30px;
       box-sizing: border-box;
       width: 400px; /* Adjusted width for consistency */
       position: relative;
@@ -77,7 +77,7 @@ echo '<html>
 
     .container .btns {
       display: flex;
-      justify-content: center; /* Cambiado a centrar */
+      justify-content: space-between;
       margin-top: 20px;
     }
 
@@ -92,6 +92,10 @@ echo '<html>
       padding: 10px;
       text-decoration: none;
       font-size: 14px;
+    }
+
+    .container button:last-child {
+      background: #3498db;
     }
 
     /* Center the alert */
@@ -157,19 +161,25 @@ echo '                </div>';
 echo '            </div>';
 echo '            <div class="btns">';
 echo '                <button type="submit" onclick="mostrarAlerta()">Pagar</button>';
+echo '                <button type="button" onclick="regresarAlCarrito()">Regresar al Carrito</button>';
 echo '            </div>';
 echo '        </form>';
 echo '    </div>';
 echo '</div>';
 
-// Redirigir a la página del carrito después de que la alerta se oculte
+
+echo '<div class="alert" id="myAlert">¡Compra realizada con éxito!</div>';
+
+// Script de JavaScript para mostrar la alerta
 echo '<script>';
 echo 'function mostrarAlerta() {';
 echo '    document.getElementById("myAlert").style.display = "block";';
 echo '    setTimeout(function() {';
 echo '        document.getElementById("myAlert").style.display = "none";';
-echo '        window.location.href = "carrito.php";';  // Redirigir a la página del carrito después de 3 segundos
 echo '    }, 3000);';  // Ocultar la alerta después de 3 segundos
+echo '}';
+echo 'function regresarAlCarrito() {';
+echo '    window.location.href = "carrito.php";';  // Redirigir al carrito
 echo '}';
 echo '</script>';
 echo '</body></html>';
