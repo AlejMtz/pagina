@@ -345,7 +345,6 @@ function eliminarDelCarrito($producto_id) {
 
             echo "<div class='menu-pl-item'>";
             echo "<h3>" . $row['nombre'] . "</h3>";
-            echo "<p>Descripción: " . $row['descripcion'] . "</p>";
             echo "<div class='prices'>";
             echo "<span>$" . number_format($row['precio'] * $cantidad, 2) . "</span>";
             echo "</div>";
