@@ -93,6 +93,20 @@ echo '<html>
       color: #666;
       margin-bottom: 20px;
     }
+
+    /* Alerta de éxito */
+    .alert {
+      position: fixed;
+      top: 50%;
+      right: calc(5cm);
+      transform: translate(0, -50%);
+      background: #27AE60;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      display: none;
+    }
+
   </style>
 </head>
 <body>';
@@ -117,11 +131,23 @@ echo '<br>';
 echo '<label for="email">Correo electrónico:</label>';
 echo '<input type="email" id="email" name="email" required>';
 echo '<br>';
-echo '<button type="submit" class="action-button">';
-echo 'Enviar';
-echo '</button>';
+echo '<button type="submit" class="action-button" onclick="mostrarAlerta()">Enviar</button>';
 echo '</form>';
 echo '</div>';
 echo '</div>';
+
+// Alerta
+echo '<div class="alert" id="myAlert">Datos ingresados correctamente</div>';
+
+// Script de JavaScript para mostrar la alerta
+echo '<script>';
+echo 'function mostrarAlerta() {';
+echo '    document.getElementById("myAlert").style.display = "block";';
+echo '    setTimeout(function() {';
+echo '        document.getElementById("myAlert").style.display = "none";';
+echo '    }, 4000);';  // Ocultar la alerta después de 3 segundos
+echo '}';
+echo '</script>';
+
 echo '</body></html>';
 ?>

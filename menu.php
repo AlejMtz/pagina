@@ -267,6 +267,20 @@ $resultado = $conexion->query($query);
     margin-bottom: 0.5cm; /* Ajusta el margen según tus necesidades */
 }
 
+#alerta {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #27AE60;
+            color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+
 
     </style>
 </head>
@@ -300,9 +314,12 @@ $resultado = $conexion->query($query);
         </div>
     </header>
 
+    <div id="alerta"></div>
+
     <section class="menu-pl container">
         <h2>Nuestros Productos</h2>
     </section>
+
 
     <?php
 if ($resultado->num_rows > 0) {
@@ -335,42 +352,53 @@ if ($resultado->num_rows > 0) {
 $conexion->close();
 ?>
 
-    <script>
+<script>
+    function mostrarAlerta(mensaje) {
+        // Mostrar la alerta con el mensaje proporcionado
+        var alerta = document.getElementById('alerta');
+        alerta.innerHTML = mensaje;
+        alerta.style.backgroundColor = "#E0DEDE"; // Puedes cambiar el color de fondo según tu preferencia
+        alerta.style.display = 'block';
 
-        
+        // Ocultar la alerta después de 5 segundos
+        setTimeout(function () {
+            alerta.style.display = 'none';
+        }, 1000);
+    }
 
-        function agregarAlCarrito(event, productoId, imagen, stock) {
-            event.preventDefault(); // Evitar la acción predeterminada del formulario
+    function agregarAlCarrito(event, productoId, imagen, stock) {
+        event.preventDefault(); // Evitar la acción predeterminada del formulario
 
-            // Verificar si hay suficiente stock
-            if (stock > 0) {
-                // Realizar una solicitud AJAX para agregar el producto al carrito
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        // La solicitud se ha completado con éxito
-                        alert("Producto agregado al carrito");
+        // Verificar si hay suficiente stock
+        if (stock > 0) {
+            // Realizar una solicitud AJAX para agregar el producto al carrito
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // La solicitud se ha completado con éxito
+                    mostrarAlerta("Producto agregado al carrito");
 
-                        // Agregar la imagen del producto al carrito
-                        var carrito = document.getElementById('carrito');
-                        var nuevoElemento = document.createElement('div');
-                        nuevoElemento.innerHTML = "<img src='" + imagen + "' alt='Imagen del producto en el carrito' style='max-width: 50px;'>";
+                    // Agregar la imagen del producto al carrito
+                    var carrito = document.getElementById('carrito');
+                    var nuevoElemento = document.createElement('div');
+                    nuevoElemento.innerHTML = "<img src='" + imagen + "' alt='Imagen del producto en el carrito' style='max-width: 50px;'>";
 
-                        carrito.appendChild(nuevoElemento);
-                    }
-                };
+                    carrito.appendChild(nuevoElemento);
+                }
+            };
 
-                // Configurar la solicitud AJAX
-                xhr.open("POST", "agregar_al_carrito.php", true);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            // Configurar la solicitud AJAX
+            xhr.open("POST", "agregar_al_carrito.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-                // Enviar la solicitud con el ID del producto
-                xhr.send("producto_id=" + productoId);
-            } else {
-                alert("No hay suficiente stock disponible.");
-            }
+            // Enviar la solicitud con el ID del producto
+            xhr.send("producto_id=" + productoId);
+        } else {
+            mostrarAlerta("No hay suficiente stock disponible.");
         }
-    </script>
+    }
+</script>
+
 </body>
 
 </html>

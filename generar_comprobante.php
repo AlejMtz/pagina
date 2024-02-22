@@ -49,10 +49,14 @@ if ($result_cliente->num_rows > 0 && $result_detalles_compra->num_rows > 0) {
     $pdf->Cell(80, 10, 'CCV:', 0);
     $pdf->Cell(0, 10, $detalles_compra['ccv'], 0, 1);
 
-    // Mostrar el PDF
-    $pdf->Output();
-} else {
-    echo "Error al obtener datos del cliente o detalles de la compra";
+   // Guardar el PDF en el servidor
+$pdf_path = __DIR__ . "/comprobante.pdf"; // Ruta absoluta al directorio actual
+$pdf->Output($pdf_path, 'F');
+
+
+    // Redirigir a la página de descarga del comprobante
+    header('Location: descargar_comprobante.php?pdf=' . urlencode($pdf_path));
+    exit;
 }
 
 // Cerrar la conexión a la base de datos
