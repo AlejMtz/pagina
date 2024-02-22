@@ -305,82 +305,39 @@ $resultado = $conexion->query($query);
     </section>
 
     <?php
-    if ($resultado->num_rows > 0) {
-        echo "<div class='general-content container'>";
-        while ($row = $resultado->fetch_assoc()) {
-            echo "<div class='general-txt'>";
-            echo "<h3>" . $row['nombre'] . "</h3>";
-            echo "<p>Descripción: " . $row['descripcion'] . "</p>";
-            echo "<p>Precio: $" . $row['precio'] . "</p>";
-            echo "<p>Stock:" . $row['stock'] . "</p>";
-            echo "<img src='" . $row['imagen'] . "' alt='Imagen del producto' style='max-width: 200px;'><br>";
-            echo "<model-viewer src='" . $row['modelo3d'] . "' style='width: 200px; height: 200px;'></model-viewer><br>";
+if ($resultado->num_rows > 0) {
+    echo "<div class='general-content container'>";
+    while ($row = $resultado->fetch_assoc()) {
+        echo "<div class='general-txt'>";
+        echo "<h3>" . $row['nombre'] . "</h3>";
+        echo "<p>Descripción: " . $row['descripcion'] . "</p>";
+        echo "<p>Precio: $" . $row['precio'] . "</p>";
+        echo "<p>Stock:" . $row['stock'] . "</p>";
+        echo "<img src='" . $row['imagen'] . "' alt='Imagen del producto' style='max-width: 200px;'><br>";
 
-            // Agregar botón "Agregar al carrito"
-            echo "<form onsubmit='agregarAlCarrito(event, " . $row['id'] . ", \"" . $row['imagen'] . "\", " . $row['stock'] . ")'>";
-            echo "<button type='submit' style='background: none; border: none; cursor: pointer; width: 120px; height: 40px;'>";
-            echo "<img src='img/carrito.jpg' alt='Agregar al carrito' style='max-width: 120%; max-height: 120%;'>";
-            echo "</button>";
-            echo "</form>";
+        // Modelo 3D
+        echo "<model-viewer src='" . $row['modelo3d'] . "' style='width: 200px; height: 200px;' camera-controls auto-rotate></model-viewer><br>";
 
+        // Agregar botón "Agregar al carrito"
+        echo "<form onsubmit='agregarAlCarrito(event, " . $row['id'] . ", \"" . $row['imagen'] . "\", " . $row['stock'] . ")'>";
+        echo "<button type='submit' style='background: none; border: none; cursor: pointer; width: 120px; height: 40px;'>";
+        echo "<img src='img/carrito.jpg' alt='Agregar al carrito' style='max-width: 120%; max-height: 120%;'>";
+        echo "</button>";
+        echo "</form>";
 
-
-            echo "</div>"; // Cierre de div .general-txt
-        }
-        echo "</div>"; // Cierre de div .general-content
-    } else {
-        echo "No hay productos disponibles.";
+        echo "</div>"; // Cierre de div .general-txt
     }
+    echo "</div>"; // Cierre de div .general-content
+} else {
+    echo "No hay productos disponibles.";
+}
 
-    $conexion->close();
-    ?>
+$conexion->close();
+?>
 
     <script>
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Obtener todos los elementos <model-viewer>
-    var modelViewers = document.querySelectorAll('model-viewer');
-
-    // Iterar sobre cada <model-viewer> y establecer la rotación automática después de cargarse completamente
-    modelViewers.forEach(function (modelViewer) {
-        modelViewer.addEventListener('load', function () {
-            // Definir la velocidad de rotación en grados por segundo (ajústalo según tus necesidades)
-            var velocidadRotacion = 10;
-
-            // Obtener el tiempo total de animación en segundos
-            var duracionAnimacion = modelViewer.duration || 2; // 2 segundos por defecto si no se proporciona la duración
-
-            // Calcular el ángulo total de rotación necesario para completar la animación
-            var anguloTotalRotacion = 360;
-
-            // Calcular el número total de fotogramas en la animación
-            var numeroTotalFotogramas = duracionAnimacion * 60; // 60 fotogramas por segundo
-
-            // Calcular el ángulo de rotación por fotograma
-            var anguloPorFotograma = anguloTotalRotacion / numeroTotalFotogramas;
-
-            // Iniciar la rotación automática después de que el modelo se haya cargado
-            var fotogramaActual = 0;
-            var rotacionInicial = modelViewer.rotation;
-
-            var intervaloRotacion = setInterval(function () {
-                // Calcular el nuevo ángulo de rotación para este fotograma
-                var nuevaRotacion = rotacionInicial + anguloPorFotograma * fotogramaActual;
-
-                // Aplicar la nueva rotación al modelo
-                modelViewer.rotation = nuevaRotacion;
-
-                // Incrementar el número de fotogramas actual
-                fotogramaActual++;
-
-                // Detener la rotación después de completar la animación
-                if (fotogramaActual >= numeroTotalFotogramas) {
-                    clearInterval(intervaloRotacion);
-                }
-            }, 1000 / 60); // Intervalo de tiempo en milisegundos (aproximadamente 60 fotogramas por segundo)
-        });
-    });
-});
+        
 
         function agregarAlCarrito(event, productoId, imagen, stock) {
             event.preventDefault(); // Evitar la acción predeterminada del formulario
