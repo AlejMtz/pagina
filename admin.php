@@ -133,7 +133,7 @@ $con = mysqli_connect("localhost", "root", "", "agendas") or die ("Error");
     h2 {
         font-size: 30px; 
         margin-top: 1cm; 
-        margin-left: 10%; 
+        margin-left: 8%; 
     }
 
 
@@ -182,8 +182,13 @@ th {
 <header>
         <h1>Administrador</h1>
     </header>
+    
 
 <h2>Agregar Producto</h2>
+
+<div style="text-align: center; margin-top: -2cm; margin-left: 25%;">
+    <h2>Modificar Producto</h2>
+</div>
 
 <form id="productForm" enctype="multipart/form-data" action="agregar_producto.php" method="post">
     <label for="nombre">Nombre:</label>
