@@ -5,12 +5,183 @@ $con = mysqli_connect("localhost", "root", "", "agendas") or die ("Error");
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Producto</title>
+    <title>Administrador</title>
+    <link rel="icon" href="img/icono.jpg">
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-image: url("img/encabezado.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            z-index: 1;
+            color: white;
+            font-size: 80px;
+            font-weight: 800;
+            text-transform: uppercase;
+            position: relative;
+            animation: moveLogo 5s infinite linear;
+            text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
+        }
+
+        @keyframes moveLogo {
+            0% {
+                left: 0;
+            }
+            50% {
+                left: 20px;
+            }
+            100% {
+                left: 0;
+            }
+        }
+
+        form {
+        text-align: center;
+        background-color:  lightgrey;
+        padding: 15px;
+        border-radius: 15px;
+        width: 30%;
+        margin-top: 1cm; /* Ajusta el espacio vertical según tus necesidades */
+        border: 2px solid transparent;
+        transition: background-color 0.3s ease;
+        position: relative;
+        z-index: 1;
+        margin-left: 3%; /* Ajusta el margen izquierdo según tus necesidades */
+    }
+
+    form label {
+        color: black;
+        font-size: 20px; /* Ajusta el tamaño de la fuente de las etiquetas según tus necesidades */
+        font-weight: 10;
+        display: block;
+        margin-bottom: 8px; /* Ajusta el espacio entre etiquetas según tus necesidades */
+    }
+
+    form input,
+    form textarea {
+        width: 100%;
+        padding: 8px; /* Ajusta el relleno de los campos de entrada según tus necesidades */
+        margin-bottom: 8px; /* Ajusta el espacio entre campos según tus necesidades */
+        box-sizing: border-box;
+    }
+
+    form button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px auto; /* Centra el botón horizontalmente y ajusta el espacio vertical según tus necesidades */
+        padding: 12px 16px;
+        border: none;
+        cursor: pointer;
+        color: white;
+        border-radius: 5px;
+        background-color: springgreen;
+        font-size: 16px;
+    }
+
+    #imagenPreview {
+        max-width: 100%; /* Ajusta el ancho máximo de la imagen previa según tus necesidades */
+        display: none;
+    }
+
+    model-viewer {
+        display: block;
+        max-width: 100%;
+    }
+
+    h2 {
+        font-size: 30px; 
+        margin-top: 1cm; 
+        margin-left: 10%; 
+    }
+
+
+    .table-responsive table th,
+    .table-responsive table td {
+    font-size: 14px; /* Ajusta el tamaño del texto según tus necesidades */
+    }
+
+    .table-container {
+    width: 60%;
+    margin-top: 1cm;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    background-color: lightgrey; /* Cambiado a gris claro */
+    padding: 15px;
+    border-radius: 15px;
+    margin-left: 35%;
+    margin-top: -20.7cm;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+th {
+    background-color: black;
+    color: white;
+}
+
+        </style>
 </head>
 <body>
+
+<header>
+        <h1>Administrador</h1>
+    </header>
 
 <h2>Agregar Producto</h2>
 
@@ -48,8 +219,6 @@ $con = mysqli_connect("localhost", "root", "", "agendas") or die ("Error");
 </form>
 
 </div>
-
-
 
 <div>
   <div
@@ -122,13 +291,8 @@ $con = mysqli_connect("localhost", "root", "", "agendas") or die ("Error");
         }
         ?>
 
-
-
       </thead>
     </table>
-
-
-
 
   </div>
   
