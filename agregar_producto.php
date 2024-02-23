@@ -41,6 +41,9 @@ $query = "INSERT INTO productos (nombre, descripcion, precio, stock, imagen, mod
 
 if ($conexion->query($query) === TRUE) {
     echo "Producto agregado con éxito.";
+    // Redirigir a la página de administración con el mensaje
+header("Location: admin.php?mensaje=" . urlencode("Producto agregado con éxito."));
+exit();
 } else {
     echo "Error al agregar el producto: " . $conexion->error;
 }
@@ -53,3 +56,4 @@ exit();
 // Cerrar la conexión
 $conexion->close();
 ?>
+

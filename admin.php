@@ -179,6 +179,16 @@ th {
 </head>
 <body>
 
+<?php
+// Verificar si hay un mensaje en la URL
+if (isset($_GET['mensaje'])) {
+    $mensaje = $_GET['mensaje'];
+    echo "<div id='mensaje' style='display: block; color: green; margin-top: 10px;'>$mensaje</div>";
+} else {
+    echo "<div id='mensaje' style='display: none; color: green; margin-top: 10px;'></div>";
+}
+?>
+
 <header>
         <h1>Administrador</h1>
     </header>
@@ -222,6 +232,9 @@ th {
 ></model-viewer>
     <button type="submit">Agregar Producto</button>
 </form>
+
+<div id="mensaje" style="display: none; color: green; margin-top: 10px;"></div>
+
 
 </div>
 
@@ -304,8 +317,8 @@ th {
 </div>
 
 <script>
-   // Función para mostrar el mensaje y recargar la página después de 2 segundos
-   function mostrarMensajeYRecargar(mensaje) {
+    // Función para mostrar el mensaje y desaparecer después de 2 segundos
+    function mostrarMensajeYDesaparecer(mensaje) {
         var mensajeElement = document.getElementById('mensaje');
         mensajeElement.innerHTML = mensaje;
         mensajeElement.style.display = 'block';
@@ -314,15 +327,15 @@ th {
         setTimeout(function () {
             mensajeElement.style.display = 'none';
         }, 2000);
-
-        // Recargar la página solo si hay un mensaje
-        if (mensaje) {
-            // Recargar la página después de 2.5 segundos (0.5 segundos después de desaparecer el mensaje)
-            setTimeout(function () {
-                location.reload();
-            }, 2500);
-        }
     }
+
+    // Verificar si hay un mensaje en la URL y mostrarlo
+    window.onload = function () {
+        var mensajeURL = "<?php echo isset($_GET['mensaje']) ? $_GET['mensaje'] : ''; ?>";
+        if (mensajeURL !== "") {
+            mostrarMensajeYDesaparecer(mensajeURL);
+        }
+    };
 </script>
 
 <script>
