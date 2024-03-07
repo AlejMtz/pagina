@@ -282,6 +282,63 @@ $resultado = $conexion->query($query);
         }
 
 
+.footer {
+    background-color: whitesmoke; 
+    padding: 40px 0;
+    text-align: center;
+    margin-top: -5cm; 
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.contact-info h5,
+.contact-info p {
+    margin: 0;
+    padding: 10px;
+    font-size: 18px; 
+    text-align: center; 
+    width: 100%; 
+}
+.col-12.mb-4 {
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    justify-content: center;
+}
+
+
+.btn-social {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 60px;
+    font-size: 28px;
+    margin-right: 10px; 
+    background-color: #fff; 
+    color: black; 
+    border: 2px solid black; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+.btn-social:hover {
+    background-color: #000000; 
+    color: #fff; 
+}
+
+.btn-1 {
+    display: flex;
+    align-items: center;
+}
     </style>
 </head>
 
@@ -398,6 +455,31 @@ $conexion->close();
         }
     }
 </script>
+
+<div class="container-fluid footer bg-light py-5" style="margin-top: 90px;">
+        <div class="container text-center py-5">
+            <div class="row">
+                <div class="col-12 mb-4">
+                <a href="" class="navbar-brand m-0">
+                    <h1 class="m-0 mt-n2 display-4 text-primary"><span class="text-secondary" style="color: black;">"Procesadores de Alimentos"</span></h1>
+                </a>
+                </div>
+                <div class="col-12 mb-4">
+                    <a class="btn btn-outline-secondary btn-social mr-2" href="https://wa.me/527292253156?text=Hola%20Chatbot" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>                    
+                    <a class="btn btn-outline-secondary btn-social mr-2" href="">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="btn btn-outline-secondary btn-social" href=" ">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>                
+    <div class="contact-info">
+        <div class="contact">
+            <h5 class="font-weight-bold mb-2">Ponerse en contacto</h5>
+        </div>
+    </div>
 
 </body>
 
