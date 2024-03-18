@@ -246,7 +246,7 @@ echo '<button id="englishButton">Change to English</button>';
 echo '</div>';
 
 echo '<div id="languageButton">';
-echo '<button id="spanishButton">Change to Spanish</button>';
+echo '<button id="spanishButton">Cambiar a Español</button>';
 echo '</div>';
 
 echo '<div id="popup-form" class="popup-form">';
@@ -312,6 +312,11 @@ function changeToEnglish() {
 
     // Cambiar el texto del botón
     document.querySelector(\'form button[type="submit"]\').textContent = "Submit";
+
+    // Cambiar el título y el texto debajo
+    document.querySelector(\'#popup-form h2\').textContent = "Purchase Process";
+    document.querySelector(\'#popup-form h3\').textContent = "Enter your buyer information";
+    document.querySelector(\'#popup-form p\').textContent = "Thank you for placing your order!";
 }
 
 // Función para cambiar el contenido al español
@@ -338,6 +343,11 @@ function changeToSpanish() {
 
     // Cambiar el texto del botón
     document.querySelector(\'form button[type="submit"]\').textContent = "Enviar";
+
+    // Cambiar el título y el texto debajo
+    document.querySelector(\'#popup-form h2\').textContent = "Proceso de Compra";
+    document.querySelector(\'#popup-form h3\').textContent = "Ingrese sus datos del comprador";
+    document.querySelector(\'#popup-form p\').textContent = "¡Gracias por realizar tu pedido!";
 }
 
 // Manejador de eventos para el botón de cambio de idioma a inglés
@@ -346,6 +356,7 @@ document.getElementById("englishButton").addEventListener("click", changeToEngli
 // Manejador de eventos para el botón de cambio de idioma a español
 document.getElementById("spanishButton").addEventListener("click", changeToSpanish);
 </script>';
+
 
 echo '</body></html>';
 ?>

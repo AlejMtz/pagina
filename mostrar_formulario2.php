@@ -248,7 +248,7 @@ echo '<button id="englishButton">Change to English</button>';
 echo '</div>';
 
 echo '<div id="languageButton">';
-echo '<button id="spanishButton">Change to English</button>';
+echo '<button id="spanishButton">Cambiar a Español</button>';
 echo '</div>';
 
 
@@ -366,7 +366,13 @@ function changeToEnglish() {
                 break;
         }
     });
+
+    // Cambiar los títulos
+    document.querySelector(\'.container h1\').textContent = "Shipping Details";
+    document.querySelectorAll(\'.container h1\')[1].textContent = "Payment Information";
 }
+
+
 
 // Función para cambiar el contenido al español
 function changeToSpanish() {
@@ -412,6 +418,10 @@ function changeToSpanish() {
                 break;
         }
     });
+
+    // Cambiar los títulos
+    document.querySelector(\'.container h1\').textContent = "Detalles de Envío";
+    document.querySelectorAll(\'.container h1\')[1].textContent = "Información del Pago";
 }
 
 // Manejador de eventos para el botón de cambio de idioma a inglés
