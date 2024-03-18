@@ -111,9 +111,100 @@ echo '<html>
       display: none;
     }
 
+    #colorBlindContainer {
+      position: absolute;
+      top: 2cm; /* Mover el contenedor 2cm hacia abajo */
+      left: 2cm; /* Mover el contenedor 2cm hacia la derecha */
+    }
+
+    #colorBlindButton {
+      background-color: #fbeee0;
+      border: 2px solid #422800;
+      border-radius: 30px;
+      box-shadow: #422800 4px 4px 0 0;
+      color: #422800;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 0 18px;
+      line-height: 50px;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    
+    #colorBlindButton:hover {
+      background-color: #fff;
+    }
+    
+    #colorBlindButton:active {
+      box-shadow: #422800 2px 2px 0 0;
+      transform: translate(2px, 2px);
+    }
+    
+    @media (min-width: 768px) {
+      #colorBlindButton {
+        min-width: 120px;
+        padding: 0 25px;
+      }
+    }
+
+    #englishButton {
+      position: absolute;
+      top: 5cm; /* Mover el contenedor 2cm hacia abajo */
+      left: 2cm; /* Mover el contenedor 2cm hacia la derecha */
+    }
+
+    #englishButton {
+      background-color: #fbeee0;
+      border: 2px solid #422800;
+      border-radius: 30px;
+      box-shadow: #422800 4px 4px 0 0;
+      color: #422800;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 0 18px;
+      line-height: 50px;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    
+    #englishButton:hover {
+      background-color: #fff;
+    }
+    
+    #englishButton:active {
+      box-shadow: #422800 2px 2px 0 0;
+      transform: translate(2px, 2px);
+    }
+    
+    @media (min-width: 768px) {
+      #englishButton {
+        min-width: 120px;
+        padding: 0 25px;
+      }
+    }
+
   </style>
+  <script src="coloresDalto.js" defer></script>
 </head>
 <body>';
+
+echo '<div id="colorBlindContainer">';
+echo '<button id="colorBlindButton">Cambiar colores para daltonismo</button>';
+echo '</div>';
+
+echo '<div id="languageButton">';
+echo '<button id="englishButton">Change to English</button>';
+echo '</div>';
 
 echo '<div class="wrapper">';
 echo '    <div class="container">';
@@ -183,4 +274,5 @@ echo '    window.location.href = "carrito.php";';  // Redirigir al carrito
 echo '}';
 echo '</script>';
 echo '</body></html>';
+
 ?>
