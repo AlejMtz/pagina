@@ -340,6 +340,8 @@ $resultado = $conexion->query($query);
     align-items: center;
 }
     </style>
+            <script src="coloresDalto.js" defer></script>
+
 </head>
 
 <body>
@@ -374,6 +376,16 @@ $resultado = $conexion->query($query);
     <div id="alerta"></div>
 
     <section class="menu-pl container">
+
+    <!-- Botón para cambiar al inglés -->
+<button id="englishButton">Change to English</button>
+
+<!-- Botón para cambiar al español -->
+<button id="spanishButton">Cambiar a Español</button>
+
+<button id="colorBlindButton">Cambiar colores para daltonismo</button>
+
+
         <h2>Nuestros Productos</h2>
     </section>
 
@@ -480,6 +492,36 @@ $conexion->close();
             <h5 class="font-weight-bold mb-2">Ponerse en contacto</h5>
         </div>
     </div>
+
+    <script>
+        // Función para cambiar el contenido al inglés
+function changeToEnglish() {
+    // Limpiar el contenido del span antes de actualizarlo
+    document.querySelector('h1 span').innerText = ""; // Borrar el contenido anterior
+    // Cambiar el contenido de los elementos relevantes a inglés
+    document.querySelector('h2').innerText = "Our Products";
+    document.querySelector('a').innerText = "FOOD PROCESSORS";
+    document.querySelector('h1').innerText = "PRODUCTS";
+}
+
+// Función para cambiar el contenido al español
+function changeToSpanish() {
+    // Limpiar el contenido del span antes de actualizarlo
+    document.querySelector('h1 span').innerText = ""; // Borrar el contenido anterior
+    // Cambiar el contenido de los elementos relevantes a español
+    document.querySelector('h2').innerText = "Nuestros Productos";
+    document.querySelectorAll('.general-txt h3')[0].innerText = "PROCESADORES DE ALIMENTOS";
+    document.querySelector('a').innerText = "PROCESADORES DE ALIMENTOS";
+    document.querySelector('h1').innerText = "PRODUCTOS";
+
+}
+
+// Manejador de eventos para el botón de cambio de idioma a inglés
+document.getElementById("englishButton").addEventListener("click", changeToEnglish);
+
+// Manejador de eventos para el botón de cambio de idioma a español
+document.getElementById("spanishButton").addEventListener("click", changeToSpanish);
+    </script>
 
 </body>
 

@@ -292,15 +292,15 @@ span {
 
 
     </style>
+        <script src="coloresDalto.js" defer></script>
+
 </head>
 <body>
     
     <header class="header">
 
         <div class="menu container">
-            <a href="#" class="logo">PROCESADORES DE 
-                ALIMENTOS
-            </a>
+            <a href="#" class="logo">PROCESADORES DE ALIMENTOS</a>
             <input type="checkbox" id="menu" />
             <label for="menu">
                 <img src="https://cdn.glitch.global/fa65af7c-32f2-4615-893a-5a9cf4c54001/procesador.jpg?v=1706063711480" class="menu-icono">
@@ -310,7 +310,7 @@ span {
         <div class="header-content container">
             <div class="header-txt">
                 <br>
-                <h1>La cocina hecha <br> <span> fácil</span> </h1>
+                <h1>La cocina hecha fácil </h1>
                 
                 <div class="buttons">
                     <a href="menu.php" class="btn-1">
@@ -331,10 +331,19 @@ span {
     </header>
 
     <section class="menu-pl container">
+<!-- Botón para cambiar al inglés -->
+<button id="englishButton">Change to English</button>
 
-        <h2>Nuestros <span>Productos</span></h2>
+<!-- Botón para cambiar al español -->
+<button id="spanishButton">Cambiar a Español</button>
+
+<button id="colorBlindButton">Cambiar colores para daltonismo</button>
+
+
+        <h2>Nuestros Productos</h2>
 
         <div class="general-content">
+
 
             <div class="general-txt">
                 <div class="model-container">
@@ -431,7 +440,7 @@ span {
             <div class="row">
                 <div class="col-12 mb-4">
                     <a href="index.html" class="navbar-brand m-0">
-                        <h1 class="m-0 mt-n2 display-4 text-primary"><span class="text-secondary">"Procesadores de Alimentos"</span></h1>
+                        <h1 class="m-0 mt-n2 display-4 text-primary" id="pageTitle"><span class="text-secondary">"Procesadores de Alimentos"</span></h1>
                     </a>
                 </div>
                 <div class="col-12 mb-4">
@@ -453,6 +462,60 @@ span {
     </div>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <script>
+        // Función para cambiar el contenido al inglés
+function changeToEnglish() {
+    // Limpiar el contenido del span antes de actualizarlo
+    document.querySelector('h1 span').innerText = ""; // Borrar el contenido anterior
+    // Cambiar el contenido de los elementos relevantes a inglés
+    document.querySelector('h2').innerText = "Our Products";
+    document.querySelector('a').innerText = "FOOD PROCESSORS";
+    document.querySelector('h1').innerText = "Cooking made easy";
+    document.querySelectorAll('.general-txt h3')[0].innerText = "FOOD PROCESSOR";
+    document.querySelectorAll('.general-txt p')[0].innerText = "Food processor. Ideal for chopping, pureeing, whisking, or blending. Completely sealed for working with liquids or dry foods.";
+    document.querySelectorAll('.general-txt .prices span')[0].innerText = "$1,500.00 MXN";
+    document.querySelectorAll('.general-txt h3')[1].innerText = "PROFESSIONAL VEGETABLE SLICER";
+    document.querySelectorAll('.general-txt p')[1].innerText = "The KSM 100 is a slicer for processing small quantities of vegetables, lettuces, and harder fruits. The large door of the blade box and the 2 different filling openings guarantee a wide range of applications.";
+    document.querySelectorAll('.general-txt .prices span')[1].innerText = "$8,000.00 MXN";
+    document.querySelectorAll('.general-txt h3')[2].innerText = "PROFESSIONAL BLENDER";
+    document.querySelectorAll('.general-txt p')[2].innerText = "The Auto-iQ cooking system provides professional performance and power. The compact Ninja cooking system with Auto-iQ provides professional performance and power.";
+    document.querySelectorAll('.general-txt .prices span')[2].innerText = "$3,500.00 MXN";
+    document.querySelector('.about-txt h2').innerText = "FOOD PROCESSORS?";
+    document.querySelector('.about-txt p').innerText = "A food processor is an appliance used to chop, shred, blend, mix, and knead food. It is a highly versatile tool that can be used to prepare a wide variety of dishes, from sauces and soups to desserts and appetizers.";
+    document.getElementById("pageTitle").querySelector('span').innerText = "Food Processors";
+
+}
+
+// Función para cambiar el contenido al español
+function changeToSpanish() {
+    // Limpiar el contenido del span antes de actualizarlo
+    document.querySelector('h1 span').innerText = ""; // Borrar el contenido anterior
+    // Cambiar el contenido de los elementos relevantes a español
+    document.querySelector('h2').innerText = "Nuestros Productos";
+    document.querySelectorAll('.general-txt h3')[0].innerText = "PROCESADORES DE ALIMENTOS";
+    document.querySelector('a').innerText = "PROCESADORES DE ALIMENTOS";
+    document.querySelector('h1').innerText = "La cocina hecha fácil";
+    document.querySelectorAll('.general-txt p')[0].innerText = "Procesador de alimentos. Ideal para picar, hacer puré, batir o licuar. Completamente sellado para trabajar con líquidos o alimentos secos.";
+    document.querySelectorAll('.general-txt .prices span')[0].innerText = "$1,500.00 MXN";
+    document.querySelectorAll('.general-txt h3')[1].innerText = "CORTADORA PROFESIONAL DE VERDURAS";
+    document.querySelectorAll('.general-txt p')[1].innerText = "La KSM 100 es una cortadora para procesar pequeñas cantidades de verduras, lechugas y frutas más duras. La gran puerta de la caja de cuchillas y las 2 aberturas de llenado diferentes garantizan una amplia gama de aplicaciones.";
+    document.querySelectorAll('.general-txt .prices span')[1].innerText = "$8,000.00 MXN";
+    document.querySelectorAll('.general-txt h3')[2].innerText = "LICUADORA PROFESIONAL";
+    document.querySelectorAll('.general-txt p')[2].innerText = "El sistema de cocina Auto-iQ proporciona rendimiento y potencia profesionales. El sistema de cocina compacto Ninja con Auto-iQ proporciona rendimiento y potencia profesionales.";
+    document.querySelectorAll('.general-txt .prices span')[2].innerText = "$3,500.00 MXN";
+    document.querySelector('.about-txt h2').innerText = "¿PROCESADORES DE ALIMENTOS?";
+    document.querySelector('.about-txt p').innerText = "Un procesador de alimentos es un electrodoméstico que se utiliza para cortar, triturar, batir, mezclar y amasar alimentos. Es una herramienta muy versátil que puede utilizarse para preparar una amplia variedad de platos, desde salsas y sopas hasta postres y aperitivos.";
+    document.getElementById("pageTitle").querySelector('span').innerText = "Procesadores de Alimentos";
+
+}
+
+// Manejador de eventos para el botón de cambio de idioma a inglés
+document.getElementById("englishButton").addEventListener("click", changeToEnglish);
+
+// Manejador de eventos para el botón de cambio de idioma a español
+document.getElementById("spanishButton").addEventListener("click", changeToSpanish);
+    </script>
 
 </body>
 </html>

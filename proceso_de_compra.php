@@ -108,8 +108,12 @@ echo '<html>
     }
 
   </style>
+  <script src="coloresDalto.js" defer></script>
+
 </head>
+
 <body>';
+echo '<button id="colorBlindButton">Cambiar colores para daltonismo</button>';
 
 echo '<div id="popup-form" class="popup-form">';
 echo '<div class="popup-content">';

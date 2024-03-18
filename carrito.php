@@ -281,6 +281,9 @@ function eliminarDelCarrito($producto_id) {
         }
 
     </style>
+
+<script src="coloresDalto.js" defer></script>
+
 </head>
 
 <body>
@@ -312,6 +315,10 @@ function eliminarDelCarrito($producto_id) {
             </div>
         </div>
     </header>
+
+    <button id="colorBlindButton">Cambiar colores para daltonismo</button>
+    <br>
+
 
     <?php
     // Mostrar el carrito
