@@ -571,7 +571,7 @@ span {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
     <script>
-        // Función para cambiar el contenido al inglés
+       // Función para cambiar el contenido al inglés
 function changeToEnglish() {
     // Limpiar el contenido del span antes de actualizarlo
     document.querySelector('h1 span').innerText = ""; // Borrar el contenido anterior
@@ -592,6 +592,11 @@ function changeToEnglish() {
     document.querySelector('.about-txt p').innerText = "A food processor is an appliance used to chop, shred, blend, mix, and knead food. It is a highly versatile tool that can be used to prepare a wide variety of dishes, from sauces and soups to desserts and appetizers.";
     document.getElementById("pageTitle").querySelector('span').innerText = "Food Processors";
 
+    // Cambiar texto de botón de inicio
+    document.querySelectorAll('.btn-1')[0].innerHTML = "<img src='img/productos.jpg' alt='Productos'> Products";
+
+    // Cambiar texto de botón de carrito
+    document.querySelectorAll('.btn-1')[1].innerHTML = "<img src='img/carrito2.jpg' alt='Comprar'> Buy";
 }
 
 // Función para cambiar el contenido al español
@@ -615,6 +620,11 @@ function changeToSpanish() {
     document.querySelector('.about-txt p').innerText = "Un procesador de alimentos es un electrodoméstico que se utiliza para cortar, triturar, batir, mezclar y amasar alimentos. Es una herramienta muy versátil que puede utilizarse para preparar una amplia variedad de platos, desde salsas y sopas hasta postres y aperitivos.";
     document.getElementById("pageTitle").querySelector('span').innerText = "Procesadores de Alimentos";
 
+    // Cambiar texto de botón de productos
+    document.querySelectorAll('.btn-1')[0].innerHTML = "<img src='img/productos.jpg' alt='Productos'> Productos";
+
+    // Cambiar texto de botón de carrito
+    document.querySelectorAll('.btn-1')[1].innerHTML = "<img src='img/carrito2.jpg' alt='Comprar'> Comprar";
 }
 
 // Manejador de eventos para el botón de cambio de idioma a inglés
@@ -622,6 +632,8 @@ document.getElementById("englishButton").addEventListener("click", changeToEngli
 
 // Manejador de eventos para el botón de cambio de idioma a español
 document.getElementById("spanishButton").addEventListener("click", changeToSpanish);
+
+
     </script>
 
 </body>

@@ -280,7 +280,7 @@ function eliminarDelCarrito($producto_id) {
             /* 1cm hacia abajo */
         }
 
-        #colorBlindButton {
+        #englishButton {
   background-color: #fbeee0;
   border: 2px solid #422800;
   border-radius: 30px;
@@ -297,8 +297,81 @@ function eliminarDelCarrito($producto_id) {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  margin-top: 0.5cm;
-  margin-left: 15cm; 
+  margin-top: 0.5cm; 
+  margin-left: 10cm;
+}
+
+#englishButton:hover {
+  background-color: #fff;
+}
+
+#englishButton:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  #englishButton {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
+
+
+#spanishButton {
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-top: 0.5cm; 
+}
+
+#spanishButton:hover {
+  background-color: #fff;
+}
+
+#spanishButton:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  #spanishButton {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
+
+#colorBlindButton {
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-top: 0.5cm; 
 }
 
 #colorBlindButton:hover {
@@ -353,7 +426,14 @@ function eliminarDelCarrito($producto_id) {
         </div>
     </header>
 
-    <button id="colorBlindButton">Cambiar colores para daltonismo</button>
+ <!-- Botón para cambiar al inglés -->
+ <button id="englishButton">Change to English</button>
+
+<!-- Botón para cambiar al español -->
+<button id="spanishButton">Cambiar a Español</button>
+
+<button id="colorBlindButton">Cambiar colores para daltonismo</button>
+    <br>
     <br>
 
 
@@ -415,6 +495,32 @@ function eliminarDelCarrito($producto_id) {
     echo "<input type='image' src='img/comprar.jpg' alt='Realizar Pedido' style='max-width: 120px; max-height: 40px;'>";
     echo "</form>";
     ?>
+
+<script>
+    // Función para cambiar el contenido al inglés
+    function changeToEnglish() {
+        // Cambiar el contenido de los elementos relevantes a inglés
+        document.querySelector('.logo').innerText = "FOOD PROCESSORS";
+        document.querySelector('.navbar ul li:nth-child(1) a').innerHTML = "<img src='img/inicio.jpg' alt='Inicio'> Home";
+        document.querySelector('.navbar ul li:nth-child(2) a').innerHTML = "<img src='img/productos.jpg' alt='Productos'> Products";
+        document.querySelector('.header-txt h1').innerText = "SHOPPING CART";
+    }
+
+    // Función para cambiar el contenido al español
+    function changeToSpanish() {
+        // Cambiar el contenido de los elementos relevantes a español
+        document.querySelector('.logo').innerText = "PROCESADORES DE ALIMENTOS";
+        document.querySelector('.navbar ul li:nth-child(1) a').innerHTML = "<img src='img/inicio.jpg' alt='Inicio'> Inicio";
+        document.querySelector('.navbar ul li:nth-child(2) a').innerHTML = "<img src='img/productos.jpg' alt='Productos'> Productos";
+        document.querySelector('.header-txt h1').innerText = "CARRITO";
+    }
+
+    // Manejador de eventos para el botón de cambio de idioma a inglés
+    document.getElementById("englishButton").addEventListener("click", changeToEnglish);
+
+    // Manejador de eventos para el botón de cambio de idioma a español
+    document.getElementById("spanishButton").addEventListener("click", changeToSpanish);
+</script>
 
 </body>
 

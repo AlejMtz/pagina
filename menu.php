@@ -610,8 +610,14 @@ function changeToEnglish() {
     document.querySelector('h1 span').innerText = ""; // Borrar el contenido anterior
     // Cambiar el contenido de los elementos relevantes a inglés
     document.querySelector('h2').innerText = "Our Products";
-    document.querySelector('a').innerText = "FOOD PROCESSORS";
-    document.querySelector('h1').innerText = "PRODUCTS";
+    document.querySelector('.logo').innerText = "FOOD PROCESSORS";
+    document.querySelector('.header-txt h1').innerText = "PRODUCTS";
+
+    // Cambiar texto de botón de inicio
+    document.querySelectorAll('.navbar ul li')[0].querySelector('a').innerHTML = "<img src='img/inicio.jpg' alt='Inicio'> Home";
+
+    // Cambiar texto de botón de carrito
+    document.querySelectorAll('.navbar ul li')[1].querySelector('a').innerHTML = "<img src='img/carrito2.jpg' alt='Comprar'> Buy";
 }
 
 // Función para cambiar el contenido al español
@@ -620,10 +626,14 @@ function changeToSpanish() {
     document.querySelector('h1 span').innerText = ""; // Borrar el contenido anterior
     // Cambiar el contenido de los elementos relevantes a español
     document.querySelector('h2').innerText = "Nuestros Productos";
-    document.querySelectorAll('.general-txt h3')[0].innerText = "PROCESADORES DE ALIMENTOS";
-    document.querySelector('a').innerText = "PROCESADORES DE ALIMENTOS";
-    document.querySelector('h1').innerText = "PRODUCTOS";
+    document.querySelector('.logo').innerText = "PROCESADORES DE ALIMENTOS";
+    document.querySelector('.header-txt h1').innerText = "PRODUCTOS";
 
+    // Mantener texto de botón de inicio
+    document.querySelectorAll('.navbar ul li')[0].querySelector('a').innerHTML = "<img src='img/inicio.jpg' alt='Inicio'> Inicio";
+
+    // Mantener texto de botón de carrito
+    document.querySelectorAll('.navbar ul li')[1].querySelector('a').innerHTML = "<img src='img/carrito2.jpg' alt='Comprar'> Comprar";
 }
 
 // Manejador de eventos para el botón de cambio de idioma a inglés

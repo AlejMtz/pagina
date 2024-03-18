@@ -193,6 +193,47 @@ echo '<html>
       }
     }
 
+    #spanishButton {
+      position: absolute;
+      top: 8cm; /* Mover el contenedor 2cm hacia abajo */
+      left: 2cm; /* Mover el contenedor 2cm hacia la derecha */
+    }
+
+    #spanishButton {
+      background-color: #fbeee0;
+      border: 2px solid #422800;
+      border-radius: 30px;
+      box-shadow: #422800 4px 4px 0 0;
+      color: #422800;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 0 18px;
+      line-height: 50px;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    
+    #spanishButton:hover {
+      background-color: #fff;
+    }
+    
+    #spanishButton:active {
+      box-shadow: #422800 2px 2px 0 0;
+      transform: translate(2px, 2px);
+    }
+    
+    @media (min-width: 768px) {
+      #spanishButton {
+        min-width: 120px;
+        padding: 0 25px;
+      }
+    }
+
   </style>
   <script src="coloresDalto.js" defer></script>
 </head>
@@ -205,6 +246,11 @@ echo '</div>';
 echo '<div id="languageButton">';
 echo '<button id="englishButton">Change to English</button>';
 echo '</div>';
+
+echo '<div id="languageButton">';
+echo '<button id="spanishButton">Change to English</button>';
+echo '</div>';
+
 
 echo '<div class="wrapper">';
 echo '    <div class="container">';
@@ -274,5 +320,105 @@ echo '    window.location.href = "carrito.php";';  // Redirigir al carrito
 echo '}';
 echo '</script>';
 echo '</body></html>';
+
+echo '<script>
+// Función para cambiar el contenido al inglés
+function changeToEnglish() {
+    // Cambiar el contenido del formulario a inglés
+    document.querySelectorAll(\'form label\').forEach(function(element) {
+        switch (element.textContent.trim()) {
+            case "Dirección":
+                element.textContent = "Address";
+                break;
+            case "Ciudad":
+                element.textContent = "City";
+                break;
+            case "Estado":
+                element.textContent = "State";
+                break;
+            case "Codigo Postal":
+                element.textContent = "Postal Code";
+                break;
+            case "No. Tarjeta de Credito":
+                element.textContent = "Credit Card Number";
+                break;
+            case "Exp":
+                element.textContent = "Expire";
+                break;
+            case "CCV":
+                element.textContent = "CCV";
+                break;
+            default:
+                break;
+        }
+    });
+
+    // Cambiar el texto de los botones
+    document.querySelectorAll(\'form button\').forEach(function(button) {
+        switch (button.textContent.trim()) {
+            case "Pagar":
+                button.textContent = "Pay";
+                break;
+            case "Regresar al Carrito":
+                button.textContent = "Return to Cart";
+                break;
+            default:
+                break;
+        }
+    });
+}
+
+// Función para cambiar el contenido al español
+function changeToSpanish() {
+    // Cambiar el contenido del formulario a español
+    document.querySelectorAll(\'form label\').forEach(function(element) {
+        switch (element.textContent.trim()) {
+            case "Address":
+                element.textContent = "Dirección";
+                break;
+            case "City":
+                element.textContent = "Ciudad";
+                break;
+            case "State":
+                element.textContent = "Estado";
+                break;
+            case "Postal Code":
+                element.textContent = "Codigo Postal";
+                break;
+            case "Credit Card Number":
+                element.textContent = "No. Tarjeta de Credito";
+                break;
+            case "Expire":
+                element.textContent = "Exp";
+                break;
+            case "CCV":
+                element.textContent = "CCV";
+                break;
+            default:
+                break;
+        }
+    });
+
+    // Cambiar el texto de los botones
+    document.querySelectorAll(\'form button\').forEach(function(button) {
+        switch (button.textContent.trim()) {
+            case "Pay":
+                button.textContent = "Pagar";
+                break;
+            case "Return to Cart":
+                button.textContent = "Regresar al Carrito";
+                break;
+            default:
+                break;
+        }
+    });
+}
+
+// Manejador de eventos para el botón de cambio de idioma a inglés
+document.getElementById("englishButton").addEventListener("click", changeToEnglish);
+
+// Manejador de eventos para el botón de cambio de idioma a español
+document.getElementById("spanishButton").addEventListener("click", changeToSpanish);
+</script>';
 
 ?>

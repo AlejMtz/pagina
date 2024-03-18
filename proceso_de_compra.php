@@ -107,6 +107,12 @@ echo '<html>
       display: none;
     }
 
+    #colorBlindContainer {
+      position: absolute;
+      top: 2cm; /* Mover el contenedor 2cm hacia abajo */
+      left: 2cm; /* Mover el contenedor 2cm hacia la derecha */
+    }
+
     #colorBlindButton {
       background-color: #fbeee0;
       border: 2px solid #422800;
@@ -124,8 +130,6 @@ echo '<html>
       user-select: none;
       -webkit-user-select: none;
       touch-action: manipulation;
-      margin-top: 0.5cm;
-      margin-left: 15cm;
     }
     
     #colorBlindButton:hover {
@@ -144,13 +148,106 @@ echo '<html>
       }
     }
 
+    #englishButton {
+      position: absolute;
+      top: 5cm; /* Mover el contenedor 2cm hacia abajo */
+      left: 2cm; /* Mover el contenedor 2cm hacia la derecha */
+    }
+
+    #englishButton {
+      background-color: #fbeee0;
+      border: 2px solid #422800;
+      border-radius: 30px;
+      box-shadow: #422800 4px 4px 0 0;
+      color: #422800;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 0 18px;
+      line-height: 50px;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    
+    #englishButton:hover {
+      background-color: #fff;
+    }
+    
+    #englishButton:active {
+      box-shadow: #422800 2px 2px 0 0;
+      transform: translate(2px, 2px);
+    }
+    
+    @media (min-width: 768px) {
+      #englishButton {
+        min-width: 120px;
+        padding: 0 25px;
+      }
+    }
+
+    #spanishButton {
+      position: absolute;
+      top: 8cm; /* Mover el contenedor 2cm hacia abajo */
+      left: 2cm; /* Mover el contenedor 2cm hacia la derecha */
+    }
+
+    #spanishButton {
+      background-color: #fbeee0;
+      border: 2px solid #422800;
+      border-radius: 30px;
+      box-shadow: #422800 4px 4px 0 0;
+      color: #422800;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 0 18px;
+      line-height: 50px;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    
+    #spanishButton:hover {
+      background-color: #fff;
+    }
+    
+    #spanishButton:active {
+      box-shadow: #422800 2px 2px 0 0;
+      transform: translate(2px, 2px);
+    }
+    
+    @media (min-width: 768px) {
+      #spanishButton {
+        min-width: 120px;
+        padding: 0 25px;
+      }
+    }
+
   </style>
   <script src="coloresDalto.js" defer></script>
 
 </head>
 
 <body>';
+
+echo '<div id="colorBlindContainer">';
 echo '<button id="colorBlindButton">Cambiar colores para daltonismo</button>';
+echo '</div>';
+
+echo '<div id="languageButton">';
+echo '<button id="englishButton">Change to English</button>';
+echo '</div>';
+
+echo '<div id="languageButton">';
+echo '<button id="spanishButton">Change to Spanish</button>';
+echo '</div>';
 
 echo '<div id="popup-form" class="popup-form">';
 echo '<div class="popup-content">';
@@ -189,6 +286,66 @@ echo '        document.getElementById("myAlert").style.display = "none";';
 echo '    }, 4000);';  // Ocultar la alerta después de 3 segundos
 echo '}';
 echo '</script>';
+
+echo '<script>
+// Función para cambiar el contenido al inglés
+function changeToEnglish() {
+    // Cambiar el contenido del formulario a inglés
+    document.querySelectorAll(\'form label\').forEach(function(element) {
+        switch (element.textContent.trim()) {
+            case "Nombre:":
+                element.textContent = "Name:";
+                break;
+            case "Apellidos:":
+                element.textContent = "Last Name:";
+                break;
+            case "Teléfono:":
+                element.textContent = "Phone:";
+                break;
+            case "Correo electrónico:":
+                element.textContent = "Email:";
+                break;
+            default:
+                break;
+        }
+    });
+
+    // Cambiar el texto del botón
+    document.querySelector(\'form button[type="submit"]\').textContent = "Submit";
+}
+
+// Función para cambiar el contenido al español
+function changeToSpanish() {
+    // Cambiar el contenido del formulario a español
+    document.querySelectorAll(\'form label\').forEach(function(element) {
+        switch (element.textContent.trim()) {
+            case "Name:":
+                element.textContent = "Nombre:";
+                break;
+            case "Last Name:":
+                element.textContent = "Apellidos:";
+                break;
+            case "Phone:":
+                element.textContent = "Teléfono:";
+                break;
+            case "Email:":
+                element.textContent = "Correo electrónico:";
+                break;
+            default:
+                break;
+        }
+    });
+
+    // Cambiar el texto del botón
+    document.querySelector(\'form button[type="submit"]\').textContent = "Enviar";
+}
+
+// Manejador de eventos para el botón de cambio de idioma a inglés
+document.getElementById("englishButton").addEventListener("click", changeToEnglish);
+
+// Manejador de eventos para el botón de cambio de idioma a español
+document.getElementById("spanishButton").addEventListener("click", changeToSpanish);
+</script>';
 
 echo '</body></html>';
 ?>
