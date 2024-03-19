@@ -449,6 +449,20 @@ $resultado = $conexion->query($query);
     padding: 0 25px;
   }
 }
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.alert {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    animation: blink 5s infinite;
+}
+
     </style>
             <script src="coloresDalto.js" defer></script>
 
@@ -495,8 +509,10 @@ $resultado = $conexion->query($query);
 
 <button id="colorBlindButton">Cambiar colores para daltonismo</button>
 
-
         <h2>Nuestros Productos</h2>
+        <div id="interactAlert" class="alert" style="background-color: #fbeee0; color: black;">
+        <i class="fas fa-info-circle"></i> Utiliza el cursor para girar y hacer zoom en los modelos 3D.
+    </div>
     </section>
 
 
